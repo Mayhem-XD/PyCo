@@ -15,14 +15,12 @@ main_file_name = f'{main_datafile_path}metro_ridership_by_line_stn_time.csv'
 xlsx_path = 'static/data/total_stn_info_20230317.xlsx'
 temp_info_name = f'{temp_files_path}temp_info.csv'
 key_path = 'static/key/kakaoapikey.txt'
-# sk_key_path = 'static/key/sk_open_api_key.txt'
 sk_key_path = os.path.join('static', 'key', 'sk_open_api_key.txt')
 heatmap_data = f'{main_datafile_path}merged_lines.csv'
 stn_code_file_path = os.path.join('static', 'data', 'stn_code.csv')
 main_heatmap = f'{main_datafile_path}lines_4heatmap_merged_.csv'
 
-with open(sk_key_path) as f_:
-    sk_key = f_.read()
+
 
 # 파일이름 입력받아 일일 데이터인지 전체기간 시간별 데이터인지 구볋 후 각각의 양식에 맞게 처리
 def stn_name_modification(name=main_file_name):
@@ -275,6 +273,8 @@ def add_lat_lng(name=heatmap_data):
     return None
 # sk_open_api를 사용하기 위해 역명 고유코드들을 구하는 함수
 def create_stn_code():
+    with open(sk_key_path) as f_:
+        sk_key = f_.read()
     url = "https://apis.openapi.sk.com/puzzle/subway/meta/stations?type=train"
     headers = {
         "accept": "application/json",
