@@ -1,0 +1,9 @@
+{% extends "prototype/01.base.html" %}
+{%block title%}자기소개{%endblock%}
+{% block weather %}{{weather|safe()}}{% endblock %}
+{% block subtitle %}자기소개{% endblock %}
+{%block content%}
+    <div>
+        자기소개 화면입니다.
+    </div>
+{%endblock%}
