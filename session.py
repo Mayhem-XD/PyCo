@@ -5,6 +5,7 @@ import os, random, json
 from user import user_bp
 from crawling import user_bp_c
 from python_func import user_bp_p
+from open_api import user_bp_o
 
 app = Flask(__name__)
 
@@ -14,6 +15,7 @@ app.config['SESSION_COOKIE_PATH'] = '/'
 app.register_blueprint(user_bp,url_prefix='/user')
 app.register_blueprint(user_bp_c,url_prefix='/crawling')
 app.register_blueprint(user_bp_p,url_prefix='/python')
+app.register_blueprint(user_bp_o,url_prefix='/api')
 
 @app.before_first_request
 def before_first_request():
