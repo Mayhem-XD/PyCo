@@ -2,20 +2,34 @@
 {%block title%}Interpark Crawling{%endblock%}
 {% block weather %}{{weather|safe()}}{% endblock %}
 {% block additional_head %}
-    
+<script>
+    function getStnInfo() {
+        let palce = $('#input_line').val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/stn_rt_location',
+            data: { place: place},
+            success: function (show) {
+                $('#imageInput').attr('class','mt-2');
+                $('#showmap').attr({ "src": "{{url_for('static',filename='img/rtstn.html')}}" });
+            }
+
+        });
+    }
+</script>
 {% endblock %}
 {% block subtitle %}실시간 역정보{% endblock %}
 {%block content%}
 <form action="" method="post">
     <table>
-        <input type="text" name="place1">
-        <input type="text" name="place2">
-        <input type="text" name="place3">
-        <input type="submit" value="제출" onclick="showHotplaces(); return false;">
+        <input type="text" name="place" placeholder="ex) 수원역">
+        
+        <input type="submit" value="제출" onclick="getStnInfo(); return false;">
     </table>
 </form>
 <div class="mt-2 d-none" id="resDiv">
-    <iframe src="{{url_for('static',filename='img/Hotplaces.html')}}" frameborder="1" width="800px" height="500px"></iframe>
+    <iframe id="showmap" frameborder="1" width="800px" height="500px"></iframe>
     <button onclick="location.href='/python/hotplace'">재실행</button>
 </div>
 

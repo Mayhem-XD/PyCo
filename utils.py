@@ -7,6 +7,11 @@ import requests,json,folium,os
 import matplotlib.pyplot as plt
 from folium.plugins import MarkerCluster
 
+swopen_api_key_path = 'static/key/sub_arr_info_key.txt'
+stn_r_addr_path = 'static/data/subway_files/stn_r_addr_final.csv'
+swopen_url = "http://swopenAPI.seoul.go.kr/api/subway/"
+
+
 def find_addr(places):
     with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
         road_key = f.read()
@@ -191,12 +196,11 @@ def rtn_addr(target,df_st):
     return str_addr.strip()
 
 def get_stnar(target):
-    with open('data/sub_arr_info_key.txt') as f:
+    with open(swopen_api_key_path) as f:
         info_key = f.read()
-    df_st = pd.read_csv('data/st_addr_20230518.csv')
-    target = target
-    target = target[:-1] if target[-1] == '역' else target
-    base_url = "http://swopenAPI.seoul.go.kr/api/subway/"
+    df_st = pd.read_csv(stn_r_addr_path)
+    target = ck_stn_name(target)
+    base_url = swopen_url
     params1 = f"{info_key}/json/realtimeStationArrival/0/16/"
     params2 = quote(target)
     url = f"{base_url}{params1}{params2}"
@@ -205,28 +209,18 @@ def get_stnar(target):
     df = pd.DataFrame(res['realtimeArrivalList'])
     df = df[['updnLine','trainLineNm','statnNm','bstatnNm','arvlMsg2','arvlMsg3','subwayId','arvlCd']]
     df.subwayId = df.subwayId.astype(int)
+    df_st.rename(columns={'지하철역':'arvlMsg3'},inplace=True)
+    df_st.drop(columns='도로명주소',inplace=True)
+    df = pd.merge(df, df_st, on='arvlMsg3', how='left')
     df1 = df[df.updnLine == '상행'].head(4).copy()
     df2 = df[df.updnLine == '하행'].head(4).copy().reset_index(drop=True)
+    lat = df_st[df_st['arvlMsg3']==target]['lat'].values
+    lng = df_st[df_st['arvlMsg3']==target]['lng'].values
 
-    temp1 =[]
-    for i in df1.index:
-        bst = df1.arvlMsg3[i].strip()
-        temp1.append(kakao_location(rtn_addr(bst,df_st)))
-    df_test = pd.DataFrame(temp1,columns=('lat','lng'))
-    df1 = pd.concat([df1, df_test], axis=1)
-    temp1 =[]
-    for i in df2.index:
-        bst = df2.arvlMsg3[i].strip()
-        temp1.append(kakao_location(rtn_addr(bst,df_st)))
-        
-    df_test = pd.DataFrame(temp1,columns=('lat','lng'))
-    df2 = pd.concat([df2, df_test], axis=1)
-    lat,lng = kakao_location(rtn_addr(target,df_st))
+    return df1,df2,lat,lng
 
-    return df1, df2, lat,lng
-
-def get_rtstnar_map(app,df1,df2,lat,lng):
-    
+def get_rtstnar_map(app,target):
+    df1, df2, lat, lng = ck_stn_name(target)
     stn_map = folium.Map(location=[lat,lng],zoom_start=13)
     marker_cluster = MarkerCluster().add_to(stn_map)
 
@@ -262,3 +256,7 @@ def get_rtstnar_map(app,df1,df2,lat,lng):
     stn_map.save(filename)
     # 
     return None
+
+def ck_stn_name(target):
+    target = target[:-1] if target[-1] == '역' else target
+    return target
