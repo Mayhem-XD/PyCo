@@ -84,35 +84,6 @@ def stn_name_modification(name=main_file_name):
 ~~~
 
 
-
-~~~ python
-# 미리 정해둔 양식으로 호선을 분리
-# 2019 이후 자료에는 9호선 2단계가 없어서 따로 처리
-def rtn_line_info(year):
-    path = temp_files_path
-    line_info = [
-        ([f'{path}1호선.csv', f'{path}경부선.csv', f'{path}경원선.csv', f'{path}경인선.csv', f'{path}장항선.csv'], '1호선'),
-        ([f'{path}2호선.csv'], '2호선'),
-        ([f'{path}3호선.csv', f'{path}일산선.csv'], '3호선'),
-        ([f'{path}4호선.csv', f'{path}과천선.csv', f'{path}안산선.csv'], '4호선'),
-        ([f'{path}5호선.csv'], '5호선'),
-        ([f'{path}6호선.csv'], '6호선'),
-        ([f'{path}7호선.csv'], '7호선'),
-        ([f'{path}8호선.csv'], '8호선'),
-        ([f'{path}경춘선.csv'], '경춘선'),
-        ([f'{path}수인선.csv',f'{path}수인선_누락.csv', f'{path}분당선.csv'], '수인분당선'),
-        ([f'{path}경의선.csv', f'{path}중앙선.csv'], '경의중앙선'),
-        ([f'{path}공항철도 1호선.csv'], '공항철도')
-    ]
-    # 19년도 이후 자료에는 9호선 2단계가 없음
-    if year >= 2019:
-        line_info.append(([f'{path}9호선.csv', f'{path}9호선2~3단계.csv'], '9호선'))
-    else:
-        line_info.append(([f'{path}9호선.csv', f'{path}9호선2단계.csv', f'{path}9호선2~3단계.csv'], '9호선'))
-    return line_info
-
-~~~
-
 ~~~ python
 # rtn_line_info(year) 함수에서 만들어진 임시파일들을 일괄제거하는 함수
 def rm_temp_files():
