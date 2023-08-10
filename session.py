@@ -2,9 +2,12 @@ from flask import Flask, render_template, request, redirect, session, flash
 from weather_util import get_weather
 import utils as ut
 import os, random, json
-from user import user_bp
-from crawling import user_bp_c
-from python_func import user_bp_p
+# from user import bp_user
+import bp_user.user as user_bp
+# from crawling import user_bp_c
+import bp_crawling.crawling as user_bp_c
+# from python_func import user_bp_p
+import bp_python.python_func as user_bp_p
 from open_api import user_bp_o
 
 app = Flask(__name__)
