@@ -8,7 +8,8 @@ import bp_user.user as user_bp
 import bp_crawling.crawling as user_bp_c
 # from python_func import user_bp_p
 import bp_python.python_func as user_bp_p
-from open_api import user_bp_o
+# from open_api import user_bp_o
+import bp_open_api.open_api as user_bp_o
 
 app = Flask(__name__)
 
