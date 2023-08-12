@@ -2,24 +2,21 @@ from flask import Flask, render_template, request, redirect, session, flash
 from weather_util import get_weather
 import utils as ut
 import os, random, json
-# from user import bp_user
-import bp_user.user as user_bp
-# from crawling import user_bp_c
-import bp_crawling.crawling as bp_c
-# from python_func import user_bp_p
-import bp_python.python_func as bp_p
-# from open_api import user_bp_o
-import bp_open_api.open_api as bp_o
+
+from bp_user.user import user_bp
+from bp_crawling.crawling import user_bp_c
+from bp_python.python_func import user_bp_p
+from bp_open_api.open_api import user_bp_o
 
 app = Flask(__name__)
 
 app.secret_key = 'qwert12345'
 app.config['SESSION_COOKIE_PATH'] = '/'
 
-app.register_blueprint(user_bp.user_bp,url_prefix='/user')
-app.register_blueprint(bp_c.user_bp_c,url_prefix='/crawling')
-app.register_blueprint(bp_p.user_bp_p,url_prefix='/python')
-app.register_blueprint(bp_o.user_bp_o,url_prefix='/api')
+app.register_blueprint(user_bp,url_prefix='/user')
+app.register_blueprint(user_bp_c,url_prefix='/crawling')
+app.register_blueprint(user_bp_p,url_prefix='/python')
+app.register_blueprint(user_bp_o,url_prefix='/api')
 
 @app.before_first_request
 def before_first_request():
