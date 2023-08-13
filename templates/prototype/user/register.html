@@ -8,7 +8,7 @@
         <div class="row">
         	<div class="col-4"></div>
             <div class="col-4">
-	            <form action="/user/register" method="post">
+	            <form action="/user/register" method="post" enctype="multipart/form-data">
 	                <table class="table table-borderless">
 	                    <tr>
 	                        <td style="width:35%"><label class="col-form-label">사용자 ID</label></td>
@@ -29,6 +29,14 @@
 	                    <tr>
 	                        <td><label class="col-form-label">이메일</label></td>
 	                        <td><input type="text" name="email" class="form-control"></td>
+	                    </tr>
+						<tr>
+	                        <td><label class="col-form-label">사진</label></td>
+	                        <td><input type="file" name="profile" class="form-control"></td>
+	                    </tr>
+	                    <tr>
+	                        <td><label class="col-form-label">주소</label></td>
+	                        <td><input type="text" name="addr" class="form-control"></td>
 	                    </tr>
 	                    <tr>
 	                        <td colspan="2" style="text-align: center;">

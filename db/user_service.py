@@ -1,10 +1,14 @@
-import json
+import json, hashlib, base64
 from mysql.connector import pooling
 
-with open('../mysql.json') as f:
+with open('./mysql.json') as f:
     config_str = f.read()
 config = json.loads(config_str)
 pool = pooling.MySQLConnectionPool(pool_name="mypool", pool_size=3, **config)
+
+UID_NOT_EXIST = 0
+CORRECT_LOGIN = 1
+WRONG_PASSWORD = 2
 
 def get_user(uid):
     conn = pool.get_connection()
@@ -66,3 +70,14 @@ def delete_user(uid):
     conn.commit()
     cur.close()
     conn.close()
+
+def login(uid,pwd):
+    user = get_user(uid)
+    pwd_sha256 = hashlib.sha256(pwd.encode())
+    hashed_pwd = base64.b64encode(pwd_sha256.digest()).decode('utf-8')
+    if user == None:
+        return UID_NOT_EXIST
+    elif hashed_pwd == user[1]:
+        return CORRECT_LOGIN
+    else:
+        return WRONG_PASSWORD
