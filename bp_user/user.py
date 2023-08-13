@@ -1,9 +1,11 @@
 from flask import Blueprint , request, session, render_template
 from flask import redirect, flash
+from datetime import datetime
 import db.user_service as us
 import json, hashlib, base64
 from werkzeug.utils import secure_filename
 import os
+from PIL import Image
 import utils as ut
 user_bp = Blueprint('user_bp',__name__)
 upload_dir = "d:/Temp/"
@@ -43,7 +45,6 @@ def register():
         return render_template('/prototype/user/register.html',menu=menu)
     else:
         profile = request.files['profile']
-        print("profile : ",profile)
         uid = request.form['uid']
         pwd = request.form['pwd']
         pwd2 = request.form['pwd2']
@@ -59,15 +60,20 @@ def register():
         if (pwd == pwd2) and (len(pwd)>1):
             pwd_sha256 = hashlib.sha256(pwd.encode())
             hashed_pwd = base64.b64encode(pwd_sha256.digest()).decode('utf-8')
-
-            # if profile and profile.content_type.startswith('image/'):
-            #     filename = secure_filename(profile.filename)
-            #     profile_path = os.path.join(upload_dir, 'profile', filename)
-            #     profile.save(profile_path)
-            #     ut.center_image(profile).save(profile_path, format='png')
-            profile = None
-            params = (uid,hashed_pwd,uname,email,profile,addr)
-            print(params)
+            filename = None
+            if profile and profile.content_type.startswith('image/'):
+                img = Image.open(profile)
+                filename = secure_filename(profile.filename)
+                profile_path = os.path.join(upload_dir, 'profile', filename)
+                profile.save(profile_path)
+                ut.center_image(img).save(profile_path, format='png')
+                mtime = os.stat(profile_path).st_mtime
+                timestamp = datetime.fromtimestamp(mtime).strftime('%Y%m%d%H%M%S')
+                new_fname = f'{timestamp}.png'
+                os.rename(profile_path, os.path.join(upload_dir, 'profile', new_fname))
+                filename = new_fname
+            params = (uid,hashed_pwd,uname,email,filename,addr)
+            
 
             us.register_user(params=params)
             flash('회원가입 완료')
