@@ -18,5 +18,10 @@ def get_user(uid):
     
 def count_users():
     conn = pool.get_connection()
-    
-    return 0
+    cur = conn.cursor()
+    sql = "select count(uid) from users"
+    cur.execute(sql,)
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+    return row
