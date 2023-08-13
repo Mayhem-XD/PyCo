@@ -16,3 +16,7 @@ def get_user(uid):
     conn.close()
     return row
     
+def count_users():
+    conn = pool.get_connection()
+    
+    return 0
