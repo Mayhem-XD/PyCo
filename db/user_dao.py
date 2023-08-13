@@ -36,3 +36,33 @@ def get_user_list(page):
     cur.close()
     conn.close()
     return rows
+
+def register_user(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "insert into users values (%s, %s, %s, %s, default, default, %s, %s)"
+    cur.execute(sql,params)
+    cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def update_user(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "update users set uname=%s, pwd=%s, email=%s, profile=%s, addr=%s where uid=%s"
+    cur.execute(sql,params)
+    cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def delete_user(uid):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "update users set isDeleted=1 uid=%s"
+    cur.execute(sql,(uid,))
+    cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
