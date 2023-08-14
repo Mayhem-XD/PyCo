@@ -74,12 +74,16 @@ def register():
                 filename = new_fname
             params = (uid,hashed_pwd,uname,email,filename,addr)
             
-
             us.register_user(params=params)
             flash('회원가입 완료')
             return redirect('/user/login')
         else:
             flash('잘못된 password')
             return redirect('/user/register')
+        
+@user_bp.route('/checkUid', methods=['GET'])
+def check_uid():
+    uid = request.args.get('uid')
+    return us.check_uid(uid)
 
 

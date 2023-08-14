@@ -10,10 +10,12 @@ from folium.plugins import MarkerCluster
 swopen_api_key_path = 'static/key/sub_arr_info_key.txt'
 stn_r_addr_path = 'static/data/subway_files/stn_r_addr_final.csv'
 swopen_url = "http://swopenAPI.seoul.go.kr/api/subway/"
+raddr_key_path = "static/key/roadapikey.txt"
+kakaoapikey_path = "static/key/kakaoapikey.txt"
 
 
 def find_addr(places):
-    with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
+    with open(raddr_key_path) as f:
         road_key = f.read()
     base_url = 'https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do'
     params1 = f'confmKey={road_key}&currentPage=1&countPerPage=10'
@@ -32,7 +34,7 @@ def find_addr(places):
     return road_addr_list
 
 def get_coord(addr):
-    with open('D:/Workspace/03.DataAnalysis/04.지도시각화/data/roadapikey.txt') as f:
+    with open(raddr_key_path) as f:
         road_key = f.read()
     base_url = 'https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do'
     params1 = f'confmKey={road_key}&currentPage=1&countPerPage=10'
@@ -47,7 +49,7 @@ def get_coord(addr):
 
 
 def kakao_location(place):
-    with open('../04.지도시각화/data/kakaoapikey.txt') as f_:
+    with open(kakaoapikey_path) as f_:
         kakao_key = f_.read()
     base_url = "https://dapi.kakao.com/v2/local/search/address.json"
     url = f'{base_url}?query={quote(place)}'

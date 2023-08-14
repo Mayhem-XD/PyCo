@@ -75,9 +75,18 @@ def login(uid,pwd):
     user = get_user(uid)
     pwd_sha256 = hashlib.sha256(pwd.encode())
     hashed_pwd = base64.b64encode(pwd_sha256.digest()).decode('utf-8')
-    if user == None:
+    if user is None:
         return UID_NOT_EXIST
     elif hashed_pwd == user[1]:
         return CORRECT_LOGIN
     else:
         return WRONG_PASSWORD
+    
+def check_uid(uid):
+    user = get_user(uid)
+    if user is None and len(uid)>=3:
+        return "사용 가능한 ID"
+    elif user is None and len(uid)<3:
+        return "사용 불가능한 ID"
+    else:
+        return "이미 존재하는 ID"
