@@ -118,7 +118,7 @@ def hot_places(places, app):
 
     road_addr_list = find_addr(places)
 
-    with open('../04.지도시각화/data/kakaoapikey.txt') as f_:
+    with open(kakaoapikey_path) as f_:
         kakao_key = f_.read()
     # df = pd.DataFrame({'이름':list(map(lambda x:x.split()[-1],places)),'주소':road_addr_list})
     df = pd.DataFrame({'이름':places,'주소':road_addr_list})

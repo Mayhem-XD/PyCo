@@ -1,7 +1,8 @@
 import requests, os
 weather_key_path = 'key/openweather.txt'
 def get_weather(app,lat_=37.295, lon_= 127.045):
-    key_file = os.path.join(app.static_folder, weather_key_path)
+    # key_file = os.path.join(app.static_folder,weather_key_path)
+    key_file = "static/key/openweather.txt"
     with open(key_file) as f:
         weather_key = f.read()
     base_url = 'http://api.openweathermap.org/data/2.5/weather'
