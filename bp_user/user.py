@@ -95,8 +95,8 @@ def update(uid):
     if request.method =='GET':
         return render_template('/prototype/user/update.html',user=user,menu=menu)
     else:
-        old_filename = request.files['profile']
-        profile = request.files['filename']
+        old_filename = request.form['filename']
+        profile = request.files['profile']
         uid = request.form['uid']
         hashed_pwd = request.form['hashedPwd']
         pwd = request.form['pwd']
@@ -115,8 +115,7 @@ def update(uid):
             pwd_sha256 = hashlib.sha256(pwd.encode())
             hashed_pwd = base64.b64encode(pwd_sha256.digest()).decode('utf-8')
             pwd_flag = True
-        
-        filename = None
+
         if profile and profile.content_type.startswith('image/'):
                 if old_filename:
                     old_file = os.path.join(upload_dir, 'profile', old_filename)
@@ -136,20 +135,34 @@ def update(uid):
         
         if email_flag:
             email = old_email
-        
         params = (uname,hashed_pwd,email,filename,addr,uid)
-        user = us.update_user(params)
-
-        session['uid'] = uid[0]
+        us.update_user(params)
+        user = us.get_user(uid)
+        session['uid'] = user[0]
         session['uname'] = user[2]
         session['email'] = user[3]
         session['addr'] = user[7]
         
         if pwd_flag:
             flash('비밀번호가 변경 되었습니다.')
-            return redirect('/')
+            return redirect('/user/list')
         else:
-            return redirect('/')
+            return redirect('/user/list')
+
+@user_bp.route('/list', methods=["GET"])
+def user_list():
+    try:
+        _ = session['uid']
+    except:
+            flash('사용자를 확인하려면 로그인하여야 합니다.')
+            return redirect('/user/login')
+    menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
+    page = int((us.count_users()[0])/10 + 1)
+    user_list = us.get_user_list(page)
+    return render_template('/prototype/user/list.html',user_list=user_list ,menu=menu)
+    
+
+
 
         
 @user_bp.route('/checkUid', methods=['GET'])

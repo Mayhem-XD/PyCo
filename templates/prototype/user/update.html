@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "prototype/01.base.html" %}
 {% block title %}회원정보수정{% endblock %}
 {% block weather %}{{ weather | safe() }}{% endblock %}
 {% block additional_head %} 
@@ -45,7 +45,7 @@
                     <td><label class="col-form-label">이메일</label></td>
                     <td>
                         <div class="input-group">
-                            <input type="text" name="email" id="email" class="form-control" value="{{user[3].substring(0, user[3].indexOf('@'))}}">
+                            <input type="text" name="email" id="email" class="form-control" value="{{user[3][:user[3].find('@')]}}">
                             <select class="form-select" name="emailDomain" id="emailDomain" onchange="updateEmail()">
                                 <option selected>@DOMAIN.com</option>
                                 <option>@gmail.com</option>
@@ -57,14 +57,14 @@
                         </div>
                     </td>
                 </tr>
-                        <tr>
-                            <td><label class="col-form-label">사진</label></td>
-                            <td><input type="file" name="profile" class="form-control" ></td>
-                        </tr>
-                        <tr>
-                            <td><label class="col-form-label">주소</label></td>
-                            <td><input type="text" name="addr" class="form-control" value="{{user.addr}}"></td>
-                        </tr>
+                <tr>
+                    <td><label class="col-form-label">사진</label></td>
+                    <td><input type="file" name="profile" class="form-control" ></td>
+                </tr>
+                <tr>
+                    <td><label class="col-form-label">주소</label></td>
+                    <td><input type="text" name="addr" class="form-control" value="{{user[7]}}"></td>
+                </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">
                         <input class="btn btn-primary" type="submit" value="제출">
