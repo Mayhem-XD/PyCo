@@ -20,6 +20,10 @@
     <div class="col-3"></div>
     <div class="col-6">
         <form action="/user/update/{{user[0]}}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="uid" value="${user.uid}">
+            <input type="hidden" name="hashedPwd" value="${user.pwd}">
+            <input type="hidden" name="filename" value="${user.profile}">
+            <input type="hidden" name="oldEmail" value="${user.email}">
             <table class="table table-borderless">
                 <tr>
                     <td style="width:35%"><label class="col-form-label">사용자 ID</label></td>
@@ -39,8 +43,28 @@
                 </tr>
                 <tr>
                     <td><label class="col-form-label">이메일</label></td>
-                    <td><input type="text" name="email" class="form-control" value="{{user[3]}}"></td>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" name="email" id="email" class="form-control" value="${user.email.substring(0, user.email.indexOf('@'))}">
+                            <select class="form-select" name="emailDomain" id="emailDomain" onchange="updateEmail()">
+                                <option selected>@DOMAIN.com</option>
+                                <option>@gmail.com</option>
+                                <option>@naver.com</option>
+                                <option>@yahoo.com</option>
+                                <option>@empas.com </option>
+                                <option>@msn.com</option>
+                            </select>
+                        </div>
+                    </td>
                 </tr>
+                        <tr>
+                            <td><label class="col-form-label">사진</label></td>
+                            <td><input type="file" name="profile" class="form-control" ></td>
+                        </tr>
+                        <tr>
+                            <td><label class="col-form-label">주소</label></td>
+                            <td><input type="text" name="addr" class="form-control" value="${user.addr}"></td>
+                        </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">
                         <input class="btn btn-primary" type="submit" value="제출">

@@ -28,14 +28,21 @@ def login():
             flash('id가 존재하지 않습니다.')
             return redirect('/user/register')
         elif result == us.CORRECT_LOGIN:
-            flash('good')
+            user_info = us.get_user(uid)
+            flash(f'{user_info[2]}님 환영합니다.')
             session['uid'] = uid
+            session['uname'] = user_info[2]
+            session['email'] = user_info[3]
+            session['addr'] = user_info[7]
             return redirect('/')
         
 
 @user_bp.route('/logout')
 def logout():
     session.pop('uid',None)                 # 설정한 세션값을 삭제
+    session.pop('uname',None)
+    session.pop('email',None)
+    session.pop('addr',None)
     return redirect('/')
 
 @user_bp.route('/register', methods=['GET','POST'])
@@ -80,6 +87,8 @@ def register():
         else:
             flash('잘못된 password')
             return redirect('/user/register')
+        
+@user_bp.route('/update', methods=['GET','POST'])
         
 @user_bp.route('/checkUid', methods=['GET'])
 def check_uid():

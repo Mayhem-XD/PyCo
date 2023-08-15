@@ -18,6 +18,17 @@ app.register_blueprint(user_bp_c,url_prefix='/crawling')
 app.register_blueprint(user_bp_p,url_prefix='/python')
 app.register_blueprint(user_bp_o,url_prefix='/api')
 
+# for Error Handling ####################
+def page_not_found(e):
+    return render_template('error404.html')
+def server_error(e):
+    return render_template('error500.html')
+
+app.register_error_handler(404, page_not_found)
+app.register_error_handler(500, server_error)
+#########################################
+
+# for AJAX  #############################
 @app.before_first_request
 def before_first_request():
     global quote,quotes
@@ -60,6 +71,7 @@ def change_profile():
     mtime = ut.change_profile(app,filename)
     return str(mtime)
 
+#########################################
 # @app.route('/user')
 # def user():
 #     menu = {'ho':0,'us':1,'cr':0,'sc':0}
