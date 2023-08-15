@@ -20,10 +20,10 @@
     <div class="col-3"></div>
     <div class="col-6">
         <form action="/user/update/{{user[0]}}" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="uid" value="${user.uid}">
-            <input type="hidden" name="hashedPwd" value="${user.pwd}">
-            <input type="hidden" name="filename" value="${user.profile}">
-            <input type="hidden" name="oldEmail" value="${user.email}">
+            <input type="hidden" name="uid" value="{{user[0]}}">
+            <input type="hidden" name="hashedPwd" value="{{user[1]}}">
+            <input type="hidden" name="filename" value="{{user[6]}}">
+            <input type="hidden" name="oldEmail" value="{{user[3]}}">
             <table class="table table-borderless">
                 <tr>
                     <td style="width:35%"><label class="col-form-label">사용자 ID</label></td>
@@ -45,7 +45,7 @@
                     <td><label class="col-form-label">이메일</label></td>
                     <td>
                         <div class="input-group">
-                            <input type="text" name="email" id="email" class="form-control" value="${user.email.substring(0, user.email.indexOf('@'))}">
+                            <input type="text" name="email" id="email" class="form-control" value="{{user[3].substring(0, user[3].indexOf('@'))}}">
                             <select class="form-select" name="emailDomain" id="emailDomain" onchange="updateEmail()">
                                 <option selected>@DOMAIN.com</option>
                                 <option>@gmail.com</option>
@@ -63,7 +63,7 @@
                         </tr>
                         <tr>
                             <td><label class="col-form-label">주소</label></td>
-                            <td><input type="text" name="addr" class="form-control" value="${user.addr}"></td>
+                            <td><input type="text" name="addr" class="form-control" value="{{user.addr}}"></td>
                         </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">

@@ -88,7 +88,69 @@ def register():
             flash('잘못된 password')
             return redirect('/user/register')
         
-@user_bp.route('/update', methods=['GET','POST'])
+@user_bp.route('/update/<uid>', methods=['GET','POST'])
+def update(uid):
+    user = us.get_user(uid)
+    menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
+    if request.method =='GET':
+        return render_template('/prototype/user/update.html',user=user,menu=menu)
+    else:
+        old_filename = request.files['profile']
+        profile = request.files['filename']
+        uid = request.form['uid']
+        hashed_pwd = request.form['hashedPwd']
+        pwd = request.form['pwd']
+        pwd2 = request.form['pwd2']
+        uname = request.form['uname']
+        email = request.form['email']
+        addr = request.form['addr']
+        old_email = request.form['oldEmail']
+
+        email_flag = False
+        if '@' not in email:
+            email_flag = True
+        
+        pwd_flag = False
+        if pwd != None and len(pwd)>1 and pwd == pwd2:
+            pwd_sha256 = hashlib.sha256(pwd.encode())
+            hashed_pwd = base64.b64encode(pwd_sha256.digest()).decode('utf-8')
+            pwd_flag = True
+        
+        filename = None
+        if profile and profile.content_type.startswith('image/'):
+                if old_filename:
+                    old_file = os.path.join(upload_dir, 'profile', old_filename)
+                    os.remove(old_file)
+                img = Image.open(profile)
+                filename = secure_filename(profile.filename)
+                profile_path = os.path.join(upload_dir, 'profile', filename)
+                profile.save(profile_path)
+                ut.center_image(img).save(profile_path, format='png')
+                mtime = os.stat(profile_path).st_mtime
+                timestamp = datetime.fromtimestamp(mtime).strftime('%Y%m%d%H%M%S')
+                new_fname = f'{timestamp}.png'
+                os.rename(profile_path, os.path.join(upload_dir, 'profile', new_fname))
+                filename = new_fname
+        else:
+            filename = old_filename
+        
+        if email_flag:
+            email = old_email
+        
+        params = (uname,hashed_pwd,email,filename,addr,uid)
+        user = us.update_user(params)
+
+        session['uid'] = uid[0]
+        session['uname'] = user[2]
+        session['email'] = user[3]
+        session['addr'] = user[7]
+        
+        if pwd_flag:
+            flash('비밀번호가 변경 되었습니다.')
+            return redirect('/')
+        else:
+            return redirect('/')
+
         
 @user_bp.route('/checkUid', methods=['GET'])
 def check_uid():
