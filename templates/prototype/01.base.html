@@ -97,7 +97,7 @@
             <div class="col-3">
                 {% block aside %}
                 <a href="javascript:changeProfile()">
-                    <img src="{{ url_for('static', filename='profile/'+session.get('profile', 'guest.jpg')) }}" class="rounded-circle" width="90%" id="profile">
+                    <img src="{{ url_for('static', filename='profile/'+session.get('profile','guest.png'))}}" class="rounded-circle" width="90%" id="profile">
                     <!-- <img src="{{url_for('static',filename='data/profile.png')}}" class="rounded-circle" width="90%" id="profile"> -->
                     <!-- <img src="https://picsum.photos/256/256" class="rounded-circle" width="90%"> -->
                 </a>

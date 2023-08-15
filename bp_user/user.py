@@ -33,6 +33,8 @@ def login():
             session['uid'] = uid
             session['uname'] = user_info[2]
             session['email'] = user_info[3]
+            if user_info[6]:
+                session['profile'] = user_info[6]
             session['addr'] = user_info[7]
             return redirect('/')
         
@@ -42,6 +44,7 @@ def logout():
     session.pop('uid',None)                 # 설정한 세션값을 삭제
     session.pop('uname',None)
     session.pop('email',None)
+    session.pop('profile',None)
     session.pop('addr',None)
     session['addr'] = '수원시 장안구'
     return redirect('/')
@@ -118,7 +121,7 @@ def update(uid):
             pwd_flag = True
 
         if profile and profile.content_type.startswith('image/'):
-                if old_filename:
+                if (old_filename is not None) and len(old_filename)>5:
                     old_file = os.path.join(upload_dir, 'profile', old_filename)
                     os.remove(old_file)
                 img = Image.open(profile)
