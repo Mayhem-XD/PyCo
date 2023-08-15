@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
         <div class="container-fluid">
             <ul class="navbar-nav">
-                <a class="navbar-brand mx-5" href="#"><img src="{{url_for('static',filename='img/main_logo.png')}}" height="36"></a>
+                <a class="navbar-brand mx-5" href="/"><img src="{{url_for('static',filename='img/main_logo.png')}}" height="36"></a>
                 <li class="nav-item mx-3">
                     <a class="nav-link {% if menu.ho %}active{%endif%}" href="{% if menu.ho %}#{%else%}/{%endif%}"><i class="fas fa-home"></i> Home</a>
                 </li>
@@ -97,7 +97,8 @@
             <div class="col-3">
                 {% block aside %}
                 <a href="javascript:changeProfile()">
-                    <img src="{{url_for('static',filename='data/profile.png')}}" class="rounded-circle" width="90%" id="profile">
+                    <img src="{{ url_for('static', filename='profile/'+session.get('profile', 'guest.jpg')) }}" class="rounded-circle" width="90%" id="profile">
+                    <!-- <img src="{{url_for('static',filename='data/profile.png')}}" class="rounded-circle" width="90%" id="profile"> -->
                     <!-- <img src="https://picsum.photos/256/256" class="rounded-circle" width="90%"> -->
                 </a>
                 <div class="mt-2 d-none" id="imageInput">
@@ -111,9 +112,9 @@
                     <a href="javascript:changeQuote()"><span class="badge bg-secondary">수정</span></a>
                 </div>
                 <div class="mt-5">
-                    <i class="fa fa-envelope me-2"></i>player_00000@naver.com<br>
-                    <img src="{{url_for('static',filename='img/github.png')}}"  height="16" class="me-2"><a href="#">MayhemXD</a><br>
-                    <img src="{{url_for('static',filename='img/facebook.png')}}" height="16" class="me-2"><a href="#">meFB</a><br>
+                    <i class="fa fa-envelope me-2"></i>{{ session.get('email', 'sample@domain') }}<br>
+                    <img src="{{url_for('static',filename='img/github.png')}}" height="16" class="me-2"><a href="#">{{ session.get('uid', 'Guest')}}</a><br>
+                    <img src="{{url_for('static',filename='img/facebook.png')}}" height="16" class="me-2"><a href="#">myFB</a><br>
                     <a href="#" onclick="change_addr(); return false;">
                         <img src="{{url_for('static',filename='img/addr.png')}}" height="16" class="me-2">
                     </a>

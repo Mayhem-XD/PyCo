@@ -8,7 +8,7 @@ import os
 from PIL import Image
 import utils as ut
 user_bp = Blueprint('user_bp',__name__)
-upload_dir = "d:/Temp/"
+upload_dir = "static"
 
 
 @user_bp.route('/login', methods=['GET','POST'])
@@ -43,6 +43,7 @@ def logout():
     session.pop('uname',None)
     session.pop('email',None)
     session.pop('addr',None)
+    session['addr'] = '수원시 장안구'
     return redirect('/')
 
 @user_bp.route('/register', methods=['GET','POST'])
@@ -141,6 +142,7 @@ def update(uid):
         session['uid'] = user[0]
         session['uname'] = user[2]
         session['email'] = user[3]
+        session['profile'] = user[6]
         session['addr'] = user[7]
         
         if pwd_flag:
@@ -160,10 +162,6 @@ def user_list():
     page = int((us.count_users()[0])/10 + 1)
     user_list = us.get_user_list(page)
     return render_template('/prototype/user/list.html',user_list=user_list ,menu=menu)
-    
-
-
-
         
 @user_bp.route('/checkUid', methods=['GET'])
 def check_uid():
