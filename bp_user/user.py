@@ -46,7 +46,7 @@ def logout():
     session.pop('email',None)
     session.pop('profile',None)
     session.pop('addr',None)
-    session['addr'] = '수원시 장안구'
+    session['addr'] = '수원시 장안구'       # default address
     return redirect('/')
 
 @user_bp.route('/register', methods=['GET','POST'])
@@ -94,7 +94,7 @@ def register():
         
 @user_bp.route('/update/<uid>', methods=['GET','POST'])
 def update(uid):
-    user = us.get_user(uid)
+    user = us.get_user(uid)             # user 객체 불러옴
     menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
     if request.method =='GET':
         return render_template('/prototype/user/update.html',user=user,menu=menu)
@@ -111,27 +111,27 @@ def update(uid):
         old_email = request.form['oldEmail']
 
         email_flag = False
-        if '@' not in email:
+        if '@' not in email:        # email 변경되지 않았으면
             email_flag = True
         
         pwd_flag = False
-        if pwd != None and len(pwd)>1 and pwd == pwd2:
+        if pwd != None and len(pwd)>1 and pwd == pwd2:      # pwd 변경 되었으면
             pwd_sha256 = hashlib.sha256(pwd.encode())
             hashed_pwd = base64.b64encode(pwd_sha256.digest()).decode('utf-8')
             pwd_flag = True
 
         if profile and profile.content_type.startswith('image/'):
-                if (old_filename is not None) and len(old_filename)>5:
+                if (old_filename is not None) and len(old_filename)>5:      # profile 업로드 되었으면
                     old_file = os.path.join(upload_dir, 'profile', old_filename)
-                    os.remove(old_file)
+                    os.remove(old_file)                                     # 기존 파일 삭제함
                 img = Image.open(profile)
                 filename = secure_filename(profile.filename)
                 profile_path = os.path.join(upload_dir, 'profile', filename)
                 profile.save(profile_path)
-                ut.center_image(img).save(profile_path, format='png')
+                ut.center_image(img).save(profile_path, format='png')       # 이미지 가공해서
                 mtime = os.stat(profile_path).st_mtime
                 timestamp = datetime.fromtimestamp(mtime).strftime('%Y%m%d%H%M%S')
-                new_fname = f'{timestamp}.png'
+                new_fname = f'{timestamp}.png'                              # 현재시간 기반 이름으로 저장
                 os.rename(profile_path, os.path.join(upload_dir, 'profile', new_fname))
                 filename = new_fname
         else:
