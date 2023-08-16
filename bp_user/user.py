@@ -2,7 +2,7 @@ from flask import Blueprint , request, session, render_template
 from flask import redirect, flash
 from datetime import datetime
 import db.user_service as us
-import json, hashlib, base64
+import json, hashlib, base64, math
 from werkzeug.utils import secure_filename
 import os
 from PIL import Image
@@ -36,6 +36,7 @@ def login():
             if user_info[6]:
                 session['profile'] = user_info[6]
             session['addr'] = user_info[7]
+            session['currentUserPage'] = math.ceil(us.count_users()[0]/10)
             return redirect('/')
         
 
@@ -45,6 +46,7 @@ def logout():
     session.pop('uname',None)
     session.pop('email',None)
     session.pop('profile',None)
+    session.pop('currentUserPage',None)
     session.pop('addr',None)
     session['addr'] = '수원시 장안구'       # default address
     return redirect('/')
@@ -154,21 +156,37 @@ def update(uid):
         else:
             return redirect('/user/list')
 
-@user_bp.route('/list', methods=["GET"])
-def user_list():
+# @user_bp.route('/list', methods=["GET"])
+# def user_list():
+#     try:
+#         _ = session['uid']
+#     except:
+#             flash('사용자를 확인하려면 로그인하여야 합니다.')
+#             return redirect('/user/login')
+#     menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
+#     page = int((us.count_users()[0])/10 + 1)
+#     user_list = us.get_user_list(page)
+#     return render_template('/prototype/user/list.html',user_list=user_list ,menu=menu)
+        
+@user_bp.route('/checkUid', methods=['GET'])
+def check_uid():
+    uid = request.args.get('uid')
+    return us.check_uid(uid)
+
+@user_bp.route('/list/<int:page>', methods=["GET"])
+def user_list(page):
     try:
         _ = session['uid']
     except:
             flash('사용자를 확인하려면 로그인하여야 합니다.')
             return redirect('/user/login')
     menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
-    page = int((us.count_users()[0])/10 + 1)
+    total_user = us.count_users()[0]
+    total_pages = math.ceil(total_user/10)
     user_list = us.get_user_list(page)
-    return render_template('/prototype/user/list.html',user_list=user_list ,menu=menu)
-        
-@user_bp.route('/checkUid', methods=['GET'])
-def check_uid():
-    uid = request.args.get('uid')
-    return us.check_uid(uid)
+    
+    page_list = [i for i in range(1, total_pages+1)]
+
+    return render_template('/prototype/user/list.html', user_list=user_list, page_list=page_list, currentUserPage=page, menu=menu)
 
 

@@ -32,7 +32,7 @@
                     <a class="nav-link {% if menu.nb %}active{%endif%}" href="#"><i class="far fa-list-alt"></i> 게시판</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link {% if menu.us %}active{%endif%}" href="/user/list"><i class="fas fa-user-friends"></i> 사용자</a>
+                    <a class="nav-link {% if menu.us %}active{%endif%}" href="{{ url_for('user_bp.user_list', page=session.get('currentpage', 1)) }}"><i class="fas fa-user-friends"></i> 사용자</a>
                 </li>
                 <li class="nav-item dropdown ms-3">
                     <a class="nav-link dropdown-toggle {% if menu.cr %}active{%endif%}" href="#" data-bs-toggle="dropdown">

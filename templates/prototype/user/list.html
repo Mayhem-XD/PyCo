@@ -32,4 +32,13 @@
         </tr>
         {% endfor %}
     </table>
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+        {% for page in page_list %}
+            <li class="page-item {{ 'active' if currentUserPage == page else '' }}">
+                <a class="page-link" href="{{ url_for('user_bp.user_list', page=page) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+    </ul>
 {% endblock %}
