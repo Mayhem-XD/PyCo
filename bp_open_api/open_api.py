@@ -10,7 +10,8 @@ app = Flask(__name__)
 def stn_rt_location():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':0,'oa':1}
     if request.method == 'GET':
-        return render_template('prototype/api/stn_rt_location.html',menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
+        return render_template('prototype/open_api/stn_rt_location.html',menu=menu,weather=get_weather(app),quote=session['quote'])
+        # return render_template('prototype/api/stn_rt_location.html',menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
     else:
         place = request.form['place']
         return ut.get_rtstnar_map(place)

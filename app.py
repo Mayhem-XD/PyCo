@@ -7,6 +7,7 @@ from bp_user.user import user_bp
 from bp_crawling.crawling import user_bp_c
 from bp_python.python_func import user_bp_p
 from bp_open_api.open_api import user_bp_o
+from bp_board.board import user_bp_board
 
 app = Flask(__name__)
 
@@ -17,12 +18,13 @@ app.register_blueprint(user_bp,url_prefix='/user')
 app.register_blueprint(user_bp_c,url_prefix='/crawling')
 app.register_blueprint(user_bp_p,url_prefix='/python')
 app.register_blueprint(user_bp_o,url_prefix='/api')
+app.register_blueprint(user_bp_board,url_prefix='/board')
 
 # for Error Handling ####################
 def page_not_found(e):
-    return render_template('error404.html')
+    return render_template('prototype/error404.html')
 def server_error(e):
-    return render_template('error500.html')
+    return render_template('prototype/error500.html')
 
 app.register_error_handler(404, page_not_found)
 app.register_error_handler(500, server_error)
@@ -72,10 +74,6 @@ def change_profile():
     return str(mtime)
 
 #########################################
-# @app.route('/user')
-# def user():
-#     menu = {'ho':0,'us':1,'cr':0,'sc':0}
-#     return redirect('/schedule')
 
 @app.route('/')
 def home():

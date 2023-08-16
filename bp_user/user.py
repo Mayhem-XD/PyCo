@@ -1,13 +1,15 @@
-from flask import Blueprint , request, session, render_template
+from flask import Blueprint , request, session, render_template, Flask
 from flask import redirect, flash
 from datetime import datetime
 import db.user_service as us
 import json, hashlib, base64, math
 from werkzeug.utils import secure_filename
 import os
+from weather_util import get_weather
 from PIL import Image
 import utils as ut
 user_bp = Blueprint('user_bp',__name__)
+app = Flask(__name__)
 upload_dir = "static"
 
 
@@ -156,18 +158,6 @@ def update(uid):
         else:
             return redirect('/user/list')
 
-# @user_bp.route('/list', methods=["GET"])
-# def user_list():
-#     try:
-#         _ = session['uid']
-#     except:
-#             flash('사용자를 확인하려면 로그인하여야 합니다.')
-#             return redirect('/user/login')
-#     menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
-#     page = int((us.count_users()[0])/10 + 1)
-#     user_list = us.get_user_list(page)
-#     return render_template('/prototype/user/list.html',user_list=user_list ,menu=menu)
-        
 @user_bp.route('/checkUid', methods=['GET'])
 def check_uid():
     uid = request.args.get('uid')

@@ -29,7 +29,7 @@
                     <a class="nav-link {% if menu.ho %}active{%endif%}" href="{% if menu.ho %}#{%else%}/{%endif%}"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link {% if menu.nb %}active{%endif%}" href="#"><i class="far fa-list-alt"></i> 게시판</a>
+                    <a class="nav-link {% if menu.nb %}active{%endif%}" href="/board/list/?p=1&f=&q="><i class="far fa-list-alt"></i> 게시판</a>
                 </li>
                 <li class="nav-item ms-3">
                     <a class="nav-link {% if menu.us %}active{%endif%}" href="{{ url_for('user_bp.user_list', page=session.get('currentpage', 1)) }}"><i class="fas fa-user-friends"></i> 사용자</a>
@@ -64,7 +64,7 @@
                         <i class="fa-brands fa-python"></i> API
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">실시간 역정보</a></li>
+                        <li><a class="dropdown-item" href="/api/stn_rt_location">실시간 역정보</a></li>
                         <li><a class="dropdown-item" href="#">혼잡도 예상</a></li>
                         <li><a class="dropdown-item" href="#">미정</a></li>
                         <li><hr class="dropdown-divider"></li>
