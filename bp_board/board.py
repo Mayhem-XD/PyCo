@@ -11,4 +11,8 @@ upload_dir = "static"
 
 @user_bp_board.route('/list', methods=['GET','POST'])
 def list():
+    page = request.args.get('p', default=1, type=int)
+    field = request.args.get('f', default='title', type=str)
+    query = request.args.get('q', default='', type=str)
+    
     return None
