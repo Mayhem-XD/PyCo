@@ -27,7 +27,7 @@ def get_board_count(field, query):
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = "select count(bid) from board where isDeleted=0 AND %s like %s"
-    cur.execute(sql,(field,query))
+    cur.execute(sql,(field,f'%{query}%'))
     row = cur.fetchone()
     cur.close()
     conn.close()
