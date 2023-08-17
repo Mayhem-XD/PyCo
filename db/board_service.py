@@ -32,3 +32,25 @@ def get_board_count(field, query):
     cur.close()
     conn.close()
     return row
+
+def insert_board(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "insert into board values(default, %s, %s, %s, default, default, default, default, %s)"
+    cur.execute(sql,params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
+
+def update_board(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "insert into board values(default, %s, %s, %s, default, default, default, default, %s)"
+    cur.execute(sql,params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
