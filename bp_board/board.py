@@ -10,5 +10,5 @@ user_bp_board = Blueprint('user_bp_board',__name__)
 upload_dir = "static"
 
 @user_bp_board.route('/list', methods=['GET','POST'])
-def login():
+def list():
     return None
