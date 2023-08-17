@@ -47,10 +47,41 @@ def insert_board(params):
 def update_board(params):
     conn = pool.get_connection()
     cur = conn.cursor()
-    sql = "insert into board values(default, %s, %s, %s, default, default, default, default, %s)"
+    sql = "update board set title=%s, content=%s, modTime=now(), files=%s where bid=%s"
     cur.execute(sql,params)
     row = cur.fetchone()
     conn.commit()
     cur.close()
     conn.close()
     return row
+
+def delete_board(bid):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "UPDATE board SET isDeleted=1 WHERE bid=%s"
+    cur.execute(sql,(bid,))
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
+
+def increase_count(field,bid):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = f"UPDATE board SET {field}={field}+1 where bid = %s"
+    cur.execute(sql,(bid,))
+    cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def decrease_reply_count(bid):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "UPDATE board SET replyCount=replyCOunt-1 where bid = %s"
+    cur.execute(sql,(bid,))
+    cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
