@@ -16,3 +16,25 @@ def get_reply_list(bid):
     cur.close()
     conn.close()
     return rows
+
+def insert_reply(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "INSERT INTO reply VALUES (default, %s, default, %s, %s, %s)"
+    cur.execute(sql,params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
+
+def delete_reply(rid):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "delete from reply where rid=%s"
+    cur.execute(sql,(rid,))
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
