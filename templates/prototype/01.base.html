@@ -29,7 +29,7 @@
                     <a class="nav-link {% if menu.ho %}active{%endif%}" href="{% if menu.ho %}#{%else%}/{%endif%}"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li class="nav-item ms-3">
-                    <a class="nav-link {% if menu.nb %}active{%endif%}" href="/board/list"><i class="far fa-list-alt"></i> 게시판</a>
+                    <a class="nav-link {% if menu.nb %}active{%endif%}" href="/board/list?p=1&f={{ session.get('title', 'title') }}&q="><i class="far fa-list-alt"></i> 게시판</a>
                     <!-- <a class="nav-link {% if menu.nb %}active{%endif%}" href="/board/list/?p=1&f=&q="><i class="far fa-list-alt"></i> 게시판</a> -->
                 </li>
                 <li class="nav-item ms-3">

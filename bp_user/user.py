@@ -49,6 +49,7 @@ def logout():
     session.pop('email',None)
     session.pop('profile',None)
     session.pop('currentUserPage',None)
+    session.pop('title',None)
     session.pop('addr',None)
     session['addr'] = '수원시 장안구'       # default address
     return redirect('/')
