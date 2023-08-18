@@ -14,5 +14,6 @@ def list():
     page = request.args.get('p', default=1, type=int)
     field = request.args.get('f', default='title', type=str)
     query = request.args.get('q', default='', type=str)
+    menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
     
-    return None
+    return render_template('/prototype/board/list.html',menu=menu)
