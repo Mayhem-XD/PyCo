@@ -1,6 +1,6 @@
 from flask import Blueprint , request, session, render_template
 from flask import redirect, flash
-from datetime import datetime
+from datetime import date
 import json, hashlib, base64, math
 from werkzeug.utils import secure_filename
 import db.board_service as bs
@@ -27,11 +27,14 @@ def list():
     total_pages = (total_board_count - 1) // bs.LIST_PER_PAGE + 1
     start_page = (page - 1) // bs.PAGE_PER_SCREEN * bs.PAGE_PER_SCREEN + 1
     end_page = min(total_pages, start_page + bs.PAGE_PER_SCREEN - 1)
-    pageList = [i for i in range(start_page, end_page + 1)]
+    page_list = [i for i in range(start_page, end_page + 1)]
 
-    
+    session['current_page'] = page
+    model = {'field' : field, 'query':query, 
+            'today': date.today().isoformat(),
+            'total_pages' : total_pages, 'start_page' : start_page,
+            'end_page' : end_page, 'page_list' : page_list
+            }
+    board_list = bs.get_board_list(field=field, query=query, offset=page)
 
-
-
-    
-    return render_template('/prototype/board/list.html',menu=menu)
+    return render_template('/prototype/board/list.html',menu=menu,model=model,board_list=board_list)

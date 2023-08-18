@@ -48,29 +48,29 @@
             <th style="width: 16%;">날짜/시간</th>
             <th style="width: 10%;">조회수</th>
         </tr>
-        {% for board in boardList %}
+        {% for board in board_list %}
         <tr>
-            <td>{{ board.bid }}</td>
+            <td>{{board[0]}}</td>
             <td>
-                <a href="/board/detail/{{ board.bid }}/{{ board.uid }}">{{ board.title }}
-                {% if board.replyCount >= 1 %}
-                    <span class="text-danger">[{{ board.replyCount }}]</span>
+                <a href="/board/detail/{{ board[0] }}/{{ board[1] }}">{{ board[2] }}
+                {% if board[5] >= 1 %}
+                    <span class="text-danger">[{{ board[5] }}]</span>
                 {% endif %}
                 </a>
             </td>
-            <td>{{ board.uname }}</td>
+            <td>{{ board[6] }}</td>
             <td>
-            {% if today in board.modTime %}
-                {% if len(board.modTime[11:19]) < 6 %}
-                    {{ board.modTime[11:19] }}:00
+                {% if today in board[3] %}
+                    {% if len(board[3][11:19]) < 6 %}
+                        {{ board[3][11:19] }}:00
+                    {% else %}
+                        {{ board[3][11:19] }}
+                    {% endif %}
                 {% else %}
-                    {{ board.modTime[11:19] }}
+                    {{ board[3][0:10] }}
                 {% endif %}
-            {% else %}
-                {{ board.modTime[0:10] }}
-            {% endif %}
-            </td>
-            <td>{{ board.viewCount }}</td>
+                </td>
+            <td>{{ board[4] }}</td>
         </tr>
     {% endfor %}
     
