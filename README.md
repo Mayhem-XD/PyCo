@@ -6,7 +6,8 @@
 
 > 내용 </br>
 > 추후 수정예정<br>
-> MySQL DB 연동 예정<br>
+> MySQL DB 연동<br>
+> 게시판, 댓글, api, <br>
 > Ajax로 기능 수정예정
 > 
 <h3>개발 과정</h3>
