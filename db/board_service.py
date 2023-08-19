@@ -20,9 +20,6 @@ def get_board(bid):
     conn.close()
     return row
 
-#   0 bid 1 uid 2 title 3 content 4 modTime
-#   5 viewCount 6 replyCount 7 files 8 uname
-
 def get_board_list(field, query, offset):
     conn = pool.get_connection()
     cur = conn.cursor()
@@ -33,8 +30,6 @@ def get_board_list(field, query, offset):
     cur.close()
     conn.close()
     return row
-
-
 
 def get_board_count(field, query):
     conn = pool.get_connection()

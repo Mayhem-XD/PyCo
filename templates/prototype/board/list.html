@@ -50,27 +50,27 @@
         </tr>
         {% for board in board_list %}
         <tr>
-            <td>{{board[0]}}</td>
+            <td>{{board['bid']}}</td>
             <td>
-                <a href="/board/detail/{{ board[0] }}/{{ board[1] }}">{{ board[2] }}
-                {% if board[5] >= 1 %}
-                    <span class="text-danger">[{{ board[5] }}]</span>
+                <a href="/board/detail/{{ board['bid'] }}/{{ board['uid'] }}">{{ board['title'] }}
+                {% if board['replyCount'] >= 1 %}
+                    <span class="text-danger">[{{ board['replyCount'] }}]</span>
                 {% endif %}
                 </a>
             </td>
-            <td>{{ board[6] }}</td>
+            <td>{{ board['uname'] }}</td>
             <td>
-                {% if today in board[3] %}
-                    {% if len(board[3][11:19]) < 6 %}
-                        {{ board[3][11:19] }}:00
+                {% if today == board['modTime'] %}
+                    {% if len(board['modTime'][11:19]) < 6 %}
+                        {{ board['modTime'][11:19] }}:00
                     {% else %}
-                        {{ board[3][11:19] }}
+                        {{ board['modTime'][11:19] }}
                     {% endif %}
                 {% else %}
-                    {{ board[3][0:10] }}
+                    {{ board['modTime'][0:10] }}
                 {% endif %}
                 </td>
-            <td>{{ board[4] }}</td>
+            <td>{{ board['viewCount'] }}</td>
         </tr>
     {% endfor %}
     
