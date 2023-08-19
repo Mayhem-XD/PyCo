@@ -53,6 +53,7 @@ def detail(bid,uid):
     # file는 나중에
 
     reply_list = rs.get_reply_list(bid=bid)
-    file_list = ['a','b','c']
+    reply_list = [dict(zip(['rid', 'comment', 'regTime', 'isMine', 'uid', 'bid', 'uname'], row)) for row in reply_list]
+    file_list = ['test_a','test_b','test_c']
 
     return render_template('/prototype/board/detail.html',menu=menu,board=board, reply_list=reply_list, file_list=file_list)

@@ -41,6 +41,68 @@
     <div class="col-12">
         {{ board['content'].replace('\n', '<br>')|safe }}
     </div>
+    <div class="col-12"><hr></div>
+        <div class="col-12">
+            {% for reply in reply_list %}
+                {% if reply['isMine'] == 0 %}
+                <div class="d-flex flex-row mt-1">
+                    <div class="card bg-light text-dark w-75">
+                        {% if reply['uid'] == session['uid'] %}
+                            <div class="card-body">
+                                <input type="hidden" name="bid" value="{{ board['bid'] }}">
+                                <input type="hidden" name="uid" value="{{ reply['rid'] }}">
+                                {{ reply['uname'] }}&nbsp;&nbsp;{{ reply['regTime']}}
+                                <a href="/reply/delete/{{ reply['rid'] }}/{{ board['bid'] }}"><i class="fa-solid fa-trash"></i></a>
+                                <br>
+                                {{ reply['comment'] }}
+                            </div>
+                        {% else %}
+                            <div class="card-body">
+                                {{ reply['uname'] }}&nbsp;&nbsp;{{ reply['regTime']}}<br>
+                                {{ reply['comment'] }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% if reply.isMine == 1 %}
+                    <div class="d-flex flex-row-reverse mt-1">
+                        <div class="card w-75">
+                            <div class="card-body text-end">
+                                {% if reply['uid'] == session['uid'] %}
+                                <input type="hidden" name="bid" value="{{ board['bid'] }}">
+                                <input type="hidden" name="uid" value="{{ reply['rid'] }}">
+                                {{ reply['uname'] }}&nbsp;&nbsp;{{ reply['regTime']}}
+                                <a href="/reply/delete/{{ reply['rid'] }}/{{ board['bid'] }}"><i class="fa-solid fa-trash"></i></a>
+                                <br>
+                                {% else %}
+                                    {{ reply['uname'] }}&nbsp;&nbsp;{{ reply['regTime']}}
+                                {% endif %}
+                                <br>
+                                {{ reply['comment'] }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <form class="form-inline" action="/reply/write" method="post">
+            <input type="hidden" name="bid" value="{{ board['bid'] }}">
+            <input type="hidden" name="uid" value="{{ board['uid'] }}">
+            <div class="row d-flex mt-2">
+                <div class="col-1 align-self-center">
+                    <span class="ms-4">댓글</span>
+                </div>
+                <div class="col-9 align-self-center">
+                    <textarea class="form-control" name="comment" rows="3"></textarea>
+                </div>
+                <div class="col-2 align-self-center">
+                    <button type="submit" class="btn btn-primary ms-3">등록</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 
 
 
