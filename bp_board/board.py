@@ -33,16 +33,18 @@ def list():
     model = {'field' : field, 'query':query, 
             'today': date.today().isoformat(),
             'total_pages' : total_pages, 'start_page' : start_page,
-            'end_page' : end_page, 'page_list' : page_list
+            'end_page' : end_page
             }
     board_list= bs.get_board_list(field=field, query=query, offset=page)
     board_list = [dict(zip(['bid', 'uid', 'title', 'modTime', 'viewCount', 'replyCount', 'uname'], row)) for row in board_list]
     for board in board_list:
         board['modTime'] = board['modTime'].strftime('%Y-%m-%d')
 
-    return render_template('/prototype/board/list.html',menu=menu,model=model,board_list=board_list)
+    return render_template('/prototype/board/list.html',menu=menu,model=model,board_list=board_list, page_list=page_list)
 
-@user_bp_board.route('/detail', methods=['GET','POST'])
-def detail():
-    
+@user_bp_board.route('/detail/<bid>/<uid>', methods=['GET','POST'])
+def detail(bid,uid):
+    menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
+
+
     return None 

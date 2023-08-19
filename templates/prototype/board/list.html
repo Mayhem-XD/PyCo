@@ -9,37 +9,37 @@
         function search() {
             const field = $('#field').val();
             const query = $('#query').val();
-            location.href = '/board/list?p=${currentBoardPage}&f=' + field + '&q=' + query;
+            location.href = "/board/list?p={{session['current_page']}}&f=" + field + '&q=' + query;
         }
     </script>    
 {% endblock %}
-{% block subtitle %}{% endblock %}
+{% block subtitle %}
+<table class="table table-sm table-borderless">
+    <tr class="d-flex">
+        <td class="col-6" style="text-align: left;">
+            <h3><strong>게시글 목록</strong>
+                <span style="font-size: 0.6em;">
+                    <a href="/board/write" class="ms-5"><i class="far fa-file-alt"></i> 글쓰기</a>
+                </span>
+            </h3>
+        </td>
+        <td class="col-2">
+            <select class="form-select me-2" id="field">
+                <option value="title" {% if field == 'title' %}selected{% endif %}>제목</option>
+                <option value="content" {%if field == 'content'%}selected{%endif%}>본문</option>
+                <option value="uname" ${% if field == 'uname' %}selected{%endif%}>글쓴이</option>
+            </select>
+        </td>
+        <td class="col-3">
+            <input class="form-control me-2" type="search" placeholder="검색할 내용" value="{{ query }}" id="query">
+        </td>
+        <td class="col-1">
+            <button class="btn btn-outline-primary" onclick="search()">검색</button>
+        </td>
+    </tr>
+</table>
+{% endblock %}
 {% block content %}
-    <table class="table table-sm table-borderless">
-        <tr class="d-flex">
-            <td class="col-6" style="text-align: left;">
-                <h3><strong>게시글 목록</strong>
-                    <span style="font-size: 0.6em;">
-                        <a href="/board/write" class="ms-5"><i class="far fa-file-alt"></i> 글쓰기</a>
-                    </span>
-                </h3>
-            </td>
-            <td class="col-2">
-                <select class="form-select me-2" id="field">
-                    <option value="title" {% if field == 'title' %}selected{% endif %}>제목</option>
-                    <option value="content" {%if field == 'content'%}selected{%endif%}>본문</option>
-                    <option value="uname" ${% if field == 'uname' %}selected{%endif%}>글쓴이</option>
-                </select>
-            </td>
-            <td class="col-3">
-                <input class="form-control me-2" type="search" placeholder="검색할 내용" value="{{ query }}" id="query">
-            </td>
-            <td class="col-1">
-                <button class="btn btn-outline-primary" onclick="search()">검색</button>
-            </td>
-        </tr>
-    </table>
-    <hr>
     <table class="table mt-2">
         <tr class="table-secondary">
             <th style="width: 10%;">ID</th>
@@ -75,5 +75,22 @@
     {% endfor %}
     
     </table>
+    <ul class="pagination justify-content-center mt-4">
+        {% if session['current_page'] > 10 %}
+            <li class="page-item"><a class="page-link" href="/board/list?p={{ model['start_page'] - 1 }}&f={{ model['field ']}}&q={{ model['query'] }}">&laquo;</a></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+        {% endif %}
+        {% for page in page_list %}
+            <li class="page-item {{ 'active' if session['current_page'] == page else '' }}">
+                <a class="page-link" href="/board/list?p={{ page }}&f={{ model['field'] }}&q={{ model['query'] }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+        {% if model['total_pages'] > model['end_page'] %}
+            <li class="page-item"><a class="page-link" href="/board/list?p={{ model['end_page'] + 1 }}&f={{ model['field'] }}&q={{ model['query'] }}">&raquo;</a></li>
+        {% else %}
+            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+        {% endif %}
+    </ul>
 
 {% endblock %}
