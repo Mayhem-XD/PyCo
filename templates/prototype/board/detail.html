@@ -1,6 +1,47 @@
 {% extends "prototype/01.base.html" %}
 {% block title %}게시판{% endblock %}
 {% block weather %}{{ weather | safe() }}{% endblock %}
-{% block additional_head %}{% endblock %}
-{% block subtitle %}{% endblock %}
-{% block content %}{% endblock %}
+{% block additional_head %}
+    <style>
+        td, th	{ text-align: center; }
+    </style>
+{% endblock %}
+{% block subtitle %}
+    게시글 상세 조회
+    <span style="font-size: 0.6em;">
+        <a href="/board/list?p={{ current_board_page }}&f=&q=" class="ms-5"><i class="fas fa-list-ul"></i> 목록</a>
+        {% if session['uid'] == board['uid'] %}
+            <a href="/board/update/{{ board['bid'] }}" class="ms-3"><i class="far fa-edit"></i> 수정</a>
+        {% else %}
+            <a href="#" class="ms-3 disabled-link"><i class="far fa-edit"></i> 수정</a>
+        {% endif %}
+        {% if session['uid'] == board['uid'] %}
+            <a href="/board/delete/{{ board['bid'] }}" class="ms-3"><i class="far fa-edit"></i> 삭제</a>
+        {% else %}
+            <a href="#" class="ms-3 disabled-link"><i class="far fa-edit"></i> 삭제</a>
+        {% endif %}
+    </span>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-8">
+        <h5>{{board['title']}}</h5>
+        <h6>글번호: {{ board['bid'] }} | {{ board['modTime'] }}</h6>
+        <h6>첨부파일:
+            {% for file in file_list %}
+                <a href="/file/download/{{ file }}" class="me-2" download>{{ file }}</a>
+            {% endfor %}
+        </h6>
+    </div>
+    <div class="col-4 text-end">
+        <h5>{{board['uname']}}</h5>
+        <h6>조회 {{board['viewCount']}}&nbsp;&nbsp;댓글 {{board['replyCount']}}</h6>
+    </div>
+    <div class="col-12"><hr></div>
+    <div class="col-12">
+        {{ board['content'].replace('\n', '<br>')|safe }}
+    </div>
+
+
+
+{% endblock %}

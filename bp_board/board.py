@@ -4,6 +4,7 @@ from datetime import date
 import json, hashlib, base64, math
 from werkzeug.utils import secure_filename
 import db.board_service as bs
+import db.reply_service as rs
 import os
 from PIL import Image
 import utils as ut
@@ -45,6 +46,13 @@ def list():
 @user_bp_board.route('/detail/<bid>/<uid>', methods=['GET','POST'])
 def detail(bid,uid):
     menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
+    if uid != session['uid']:
+        bs.increase_count('viewCount',bid=bid)
+    board = bs.get_board(bid=bid)
+    board = dict(zip(['bid', 'uid', 'title', 'content', 'modTime', 'viewCount', 'replyCount', 'files','uname'], board))
+    # file는 나중에
 
+    reply_list = rs.get_reply_list(bid=bid)
+    file_list = ['a','b','c']
 
-    return None 
+    return render_template('/prototype/board/detail.html',menu=menu,board=board, reply_list=reply_list, file_list=file_list)
