@@ -8,7 +8,8 @@
 > 추후 수정예정<br>
 > MySQL DB 연동<br>
 > 게시판, 댓글, api, <br>
-> Ajax로 기능 수정예정
+> Ajax로 기능 수정예정 <br>
+> 튜플로 받아온 xxxxx_list dict로 변경
 > 
 <h3>개발 과정</h3>
 
