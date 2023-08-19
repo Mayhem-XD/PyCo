@@ -35,7 +35,7 @@ def list():
             'total_pages' : total_pages, 'start_page' : start_page,
             'end_page' : end_page
             }
-    board_list= bs.get_board_list(field=field, query=query, offset=page)
+    board_list= bs.get_board_list(field=field, query=query, page=page)
     board_list = [dict(zip(['bid', 'uid', 'title', 'modTime', 'viewCount', 'replyCount', 'uname'], row)) for row in board_list]
     for board in board_list:
         board['modTime'] = board['modTime'].strftime('%Y-%m-%d')

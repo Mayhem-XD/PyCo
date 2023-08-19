@@ -20,7 +20,8 @@ def get_board(bid):
     conn.close()
     return row
 
-def get_board_list(field, query, offset):
+def get_board_list(field, query, page):
+    offset = (page - 1) * 10
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = "SELECT b.bid, b.uid, b.title, b.modTime, b.viewCount, b.replyCount, u.uname FROM board AS b \
