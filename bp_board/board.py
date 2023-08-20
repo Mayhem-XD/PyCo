@@ -17,7 +17,7 @@ def list():
     try:
         _ = session['uid']
     except:
-            flash('스케줄을 확인하려면 로그인하여야 합니다.')
+            flash('게시판을 확인하려면 로그인하여야 합니다.')
             return redirect('/user/login')
     
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
@@ -84,3 +84,19 @@ def delete_confirm(bid):
     bs.delete_board(bid)
     cs = session['current_page']
     return redirect(url_for('user_bp_board.list', p=cs, f='', q=''))
+
+@user_bp_board.route('/update/<bid>', methods=['GET','POST'])
+def update(bid):
+    if request.method == 'GET':
+        menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
+        board = bs.get_board(bid)
+        board = dict(zip(['bid', 'uid', 'title', 'content', 'modTime', 'viewCount', 'replyCount', 'files','uname'], board))
+        return render_template('/prototype/board/update.html', menu=menu, board=board)
+    else:
+        title = request.form['title']
+        content = request.form['content']
+        files = request.form.getlist('delFile') 
+
+        print("\r\r title: ",title," content: ",content," files :",files,"\r\r")
+        # files : []
+        return redirect(f"/board/detail/{bid}/{session['uid']}")
