@@ -73,3 +73,14 @@ def write():
         params = (s_uid, title, content, files)
         bs.insert_board(params=params)
         return redirect(url_for('user_bp_board.list', p=1, f='', q=''))
+
+@user_bp_board.route('/delete/<bid>', methods=['GET'])
+def delete(bid):
+    menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
+    return render_template('/prototype/board/delete.html', menu=menu, bid=bid)
+
+@user_bp_board.route('/deleteConfirm/<bid>', methods=['GET'])
+def delete_confirm(bid):
+    bs.delete_board(bid)
+    cs = session['current_page']
+    return redirect(url_for('user_bp_board.list', p=cs, f='', q=''))
