@@ -1,5 +1,5 @@
 from flask import Blueprint , request, session, render_template
-from flask import redirect, flash
+from flask import redirect, flash, url_for
 from datetime import date
 import json, hashlib, base64, math
 from werkzeug.utils import secure_filename
@@ -57,3 +57,19 @@ def detail(bid,uid):
     file_list = ['test_a','test_b','test_c']
 
     return render_template('/prototype/board/detail.html',menu=menu,board=board, reply_list=reply_list, file_list=file_list)
+
+@user_bp_board.route('/write', methods=['GET','POST'])
+def write():
+    menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
+    if request.method == 'GET':
+        return render_template('/prototype/board/write.html',menu=menu)
+    else:
+        title = request.form['title']
+        content = request.form['content']
+        # files는 나중에
+        # files = request.files['files']
+        files = '{"list":[]}'
+        s_uid = session['uid']
+        params = (s_uid, title, content, files)
+        bs.insert_board(params=params)
+        return redirect(url_for('user_bp_board.list', p=1, f='', q=''))
