@@ -11,7 +11,7 @@ import utils as ut
 user_bp_reply = Blueprint('user_bp_reply',__name__)
 upload_dir = "static"
 
-@user_bp_reply.route('/write',method=['POST'])
+@user_bp_reply.route('/write',methods=['POST'])
 def write():
     bid = request.form['bid']
     board_uid = request.form['uid']
