@@ -23,3 +23,9 @@ def write():
     rs.insert_reply(params=params)
     bs.increase_count('replyCount',bid=bid)
     return redirect(f"/board/detail/{bid}/{session['uid']}")
+
+@user_bp_reply.route('/delete/<rid>/<bid>',methods=['POST'])
+def delete(rid,bid):
+    rs.delete_reply(rid)
+    bs.decrease_reply_count(bid)
+    return redirect(f"/board/detail/{bid}/{session['uid']}")
