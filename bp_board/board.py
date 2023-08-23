@@ -33,14 +33,15 @@ def list():
 
     session['current_page'] = page
     model = {'field' : field, 'query':query, 
-            'today': datetime.now().isoformat().replace('T','')[:-7],
+            'today': datetime.now().isoformat().replace('T',' ')[:-7],
             'total_pages' : total_pages, 'start_page' : start_page,
             'end_page' : end_page
             }
+    print(model['today'])
     board_list= bs.get_board_list(field=field, query=query, page=page)
     board_list = [dict(zip(['bid', 'uid', 'title', 'modTime', 'viewCount', 'replyCount', 'uname'], row)) for row in board_list]
     for board in board_list:
-        board['modTime'] = board['modTime'].strftime('%Y-%m-%d')
+        board['modTime'] = board['modTime'].strftime('%Y-%m-%d-%H-%M-%S')
 
     return render_template('/prototype/board/list.html',menu=menu,model=model,board_list=board_list, page_list=page_list)
 

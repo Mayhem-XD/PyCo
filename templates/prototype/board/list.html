@@ -60,8 +60,8 @@
             </td>
             <td>{{ board['uname'] }}</td>
             <td>
-                {% if today == board['modTime'] %}
-                    {% if len(board['modTime'][11:19]) < 6 %}
+                {% if model['today'][:10] == board['modTime'][:10] %}
+                    {% if (board['modTime'][11:19]|length) < 6 %}
                         {{ board['modTime'][11:19] }}:00
                     {% else %}
                         {{ board['modTime'][11:19] }}
