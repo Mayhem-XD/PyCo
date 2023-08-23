@@ -1,6 +1,7 @@
 from flask import Blueprint , request, session, render_template
 from flask import redirect, flash, url_for
 from datetime import date
+from datetime import datetime
 import json, hashlib, base64, math
 from werkzeug.utils import secure_filename
 import db.board_service as bs
@@ -32,7 +33,7 @@ def list():
 
     session['current_page'] = page
     model = {'field' : field, 'query':query, 
-            'today': date.today().isoformat(),
+            'today': datetime.now().isoformat().replace('T','')[:-7],
             'total_pages' : total_pages, 'start_page' : start_page,
             'end_page' : end_page
             }
