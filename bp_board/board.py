@@ -1,6 +1,5 @@
 from flask import Blueprint , request, session, render_template
 from flask import redirect, flash, url_for
-from datetime import date
 from datetime import datetime
 import json, hashlib, base64, math
 from werkzeug.utils import secure_filename
@@ -99,6 +98,5 @@ def update(bid):
         content = request.form['content']
         files = request.form.getlist('delFile') 
 
-        print("\r\r title: ",title," content: ",content," files :",files,"\r\r")
         # files : []
         return redirect(f"/board/detail/{bid}/{session['uid']}")

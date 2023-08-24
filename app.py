@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, session, flash
 from weather_util import get_weather
 import utils as ut
 import os, random, json
-
 from bp_user.user import user_bp
 from bp_crawling.crawling import user_bp_c
 from bp_python.python_func import user_bp_p
@@ -44,7 +43,6 @@ def before_first_request():
     session['quote'] = quote
     addr = '수원시 장안구'
     session['addr'] = addr
-    
     
 @app.route('/change_quote')
 def change_quote():
