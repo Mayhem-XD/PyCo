@@ -70,24 +70,21 @@ def write():
         # files는 나중에
         # files = request.files['files']
         if 'files' not in request.files:
+            # 여기 수정해야함 업로드 없을때
             files = ""
-        print("===================================================================")
-        print('files_list : ',request.files)
-        print("===================================================================")
+        
         files = request.files.getlist('files')
         filenames = []
         for file in files:
             if file.filename == '':
+                # filename 없을 경우 수정 해아함
                 print('file이름 없음')
             if file:
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(upload_dir,'upload', filename))
                 filenames.append(filename)
         filenames_json = json.dumps(filenames)
-        print("===================================================================")
-        print('files : ',files)
-        print("===================================================================")
-        # files = '{"list":[]}'
+        
         s_uid = session['uid']
         params = (s_uid, title, content, filenames_json)
         bs.insert_board(params=params)
