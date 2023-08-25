@@ -69,9 +69,27 @@ def write():
         content = request.form['content']
         # files는 나중에
         # files = request.files['files']
-        files = '{"list":[]}'
+        if 'files' not in request.files:
+            files = ""
+        print("===================================================================")
+        print('files_list : ',request.files)
+        print("===================================================================")
+        files = request.files.getlist('files')
+        filenames = []
+        for file in files:
+            if file.filename == '':
+                print('file이름 없음')
+            if file:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(upload_dir,'upload', filename))
+                filenames.append(filename)
+        filenames_json = json.dumps(filenames)
+        print("===================================================================")
+        print('files : ',files)
+        print("===================================================================")
+        # files = '{"list":[]}'
         s_uid = session['uid']
-        params = (s_uid, title, content, files)
+        params = (s_uid, title, content, filenames_json)
         bs.insert_board(params=params)
         return redirect(url_for('user_bp_board.list', p=1, f='', q=''))
 
