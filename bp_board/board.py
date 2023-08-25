@@ -70,20 +70,20 @@ def write():
         # files는 나중에
         # files = request.files['files']
         if 'files' not in request.files:
-            # 여기 수정해야함 업로드 없을때
-            files = ""
-        
-        files = request.files.getlist('files')
-        filenames = []
-        for file in files:
-            if file.filename == '':
-                # filename 없을 경우 수정 해아함
-                print('file이름 없음')
-            if file:
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(upload_dir,'upload', filename))
-                filenames.append(filename)
-        filenames_json = json.dumps(filenames)
+            filenames= ""
+            filenames_json = json.dumps(filenames)
+        else:
+            files = request.files.getlist('files')
+            filenames = []
+            for file in files:
+                if file.filename == '':
+                    # filename 없을 경우 수정 해아함
+                    print('file이름 없음')
+                if file:
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(upload_dir,'upload', filename))
+                    filenames.append(filename)
+            filenames_json = json.dumps(filenames)
         
         s_uid = session['uid']
         params = (s_uid, title, content, filenames_json)
