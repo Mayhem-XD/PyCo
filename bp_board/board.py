@@ -114,7 +114,7 @@ def update(bid):
         files = request.form.getlist('delFile')
         #######################################
         if 'files' not in request.files:
-            filenames= ""
+            filenames= secure_filename(files.filename)
             filenames_json = json.dumps(filenames)
         else:
             filenames = []
