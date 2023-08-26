@@ -111,10 +111,26 @@ def update(bid):
     else:
         title = request.form['title']
         content = request.form['content']
-        # files = request.form.getlist('delFile')
+        files = request.form.getlist('delFile')
+        #######################################
+        if 'files' not in request.files:
+            filenames= ""
+            filenames_json = json.dumps(filenames)
+        else:
+            filenames = []
+            for file in files:
+                if file.filename == '':
+                    # filename 없을 경우 수정 해아함
+                    print('file이름 없음')
+                if file:
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(upload_dir,'upload', filename))
+                    filenames.append(filename)
+            filenames_json = json.dumps(filenames)
+        ######################################
         # files 나중에
-        files = '{"list":[]}'
-        params = (title,content,files,bid)
+        # files = '{"list":[]}'
+        params = (title,content,filenames_json,bid)
         bs.update_board(params=params)
 
         # files : []
