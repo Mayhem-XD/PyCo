@@ -31,13 +31,14 @@ def list():
     page_list = [i for i in range(start_page, end_page + 1)]
 
     session['current_page'] = page
+    # model dict로 전달
     model = {'field' : field, 'query':query, 
             'today': datetime.now().isoformat().replace('T',' ')[:-7],
             'total_pages' : total_pages, 'start_page' : start_page,
             'end_page' : end_page
             }
-    print(model['today'])
     board_list= bs.get_board_list(field=field, query=query, page=page)
+    # tuple 타입으로 받은 리스트를 dictionary안의 list로 변환
     board_list = [dict(zip(['bid', 'uid', 'title', 'modTime', 'viewCount', 'replyCount', 'uname'], row)) for row in board_list]
     for board in board_list:
         board['modTime'] = board['modTime'].strftime('%Y-%m-%d-%H-%M-%S')
@@ -123,6 +124,7 @@ def update(bid):
                     # filename 없을 경우 수정 해아함
                     print('file이름 없음')
                 if file:
+                    # 기존 업로드한 파일 삭제하는 코드 추가해야함
                     filename = secure_filename(file.filename)
                     file.save(os.path.join(upload_dir,'upload', filename))
                     filenames.append(filename)
