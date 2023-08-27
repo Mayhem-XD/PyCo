@@ -38,7 +38,7 @@ def list():
             'end_page' : end_page
             }
     board_list= bs.get_board_list(field=field, query=query, page=page)
-    # tuple 타입으로 받은 리스트를 dictionary안의 list로 변환
+    # tuple 타입으로 받은 리스트를 dictionary안의 list로 변환 'modTime'수정해야 해서
     board_list = [dict(zip(['bid', 'uid', 'title', 'modTime', 'viewCount', 'replyCount', 'uname'], row)) for row in board_list]
     for board in board_list:
         board['modTime'] = board['modTime'].strftime('%Y-%m-%d-%H-%M-%S')
@@ -48,7 +48,9 @@ def list():
 @user_bp_board.route('/detail/<bid>/<uid>', methods=['GET','POST'])
 def detail(bid,uid):
     menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
+    # 조회하는 게시글이 자기가 작성한 것이 아니면
     if uid != session['uid']:
+        # 조회수 증가
         bs.increase_count('viewCount',bid=bid)
     board = bs.get_board(bid=bid)
     board = dict(zip(['bid', 'uid', 'title', 'content', 'modTime', 'viewCount', 'replyCount', 'files','uname'], board))
