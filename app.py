@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 app.secret_key = 'qwert12345'
 app.config['SESSION_COOKIE_PATH'] = '/'
-
+# blueprint 
 app.register_blueprint(user_bp,url_prefix='/user')
 app.register_blueprint(user_bp_c,url_prefix='/crawling')
 app.register_blueprint(user_bp_p,url_prefix='/python')
@@ -80,7 +80,7 @@ def home():
     menu = {'ho':1,'nb':0,'us':0,'cr':0,'sc':0}
     return render_template('prototype/home.html',menu=menu, weather=get_weather(app),quote=quote,addr=addr)
 
-@app.route('/schedule')
+@app.route('/schedule') # 수정될 부분
 def schedule():
     try:
         _ = session['uid']
@@ -90,7 +90,7 @@ def schedule():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
     return render_template('prototype/02.schedule.html',menu=menu, weather=get_weather(app),quote=quote,addr=addr)
 
-@app.route('/self_intr')
+@app.route('/self_intr') # 삭제될 부분
 def self_intr():
     menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
     return render_template('prototype/self_intr.html',menu=menu, weather=get_weather(app),quote=quote,addr=addr)
