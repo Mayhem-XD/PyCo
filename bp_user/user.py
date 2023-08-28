@@ -21,7 +21,7 @@ def login():
     else:
         uid = request.form['uid']
         pwd = request.form['pwd']
-        
+        # userService login check
         result = us.login(uid,pwd)
         if result == us.WRONG_PASSWORD:
             flash('잘못된 pwd')
@@ -30,8 +30,10 @@ def login():
             flash('id가 존재하지 않습니다.')
             return redirect('/user/register')
         elif result == us.CORRECT_LOGIN:
+            # user 정보 가져옴
             user_info = us.get_user(uid)
             flash(f'{user_info[2]}님 환영합니다.')
+            # session 값 
             session['uid'] = uid
             session['uname'] = user_info[2]
             session['email'] = user_info[3]
@@ -82,6 +84,7 @@ def register():
                 filename = secure_filename(profile.filename)
                 profile_path = os.path.join(upload_dir, 'profile', filename)
                 profile.save(profile_path)
+                # image 가공
                 ut.center_image(img).save(profile_path, format='png')
                 mtime = os.stat(profile_path).st_mtime
                 timestamp = datetime.fromtimestamp(mtime).strftime('%Y%m%d%H%M%S')
