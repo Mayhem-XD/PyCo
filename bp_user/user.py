@@ -107,16 +107,18 @@ def update(uid):
     if request.method =='GET':
         return render_template('/prototype/user/update.html',user=user,menu=menu)
     else:
+        # hidden으로 받아옴
         old_filename = request.form['filename']
-        profile = request.files['profile']
         uid = request.form['uid']
         hashed_pwd = request.form['hashedPwd']
+        old_email = request.form['oldEmail']
+        #
+        profile = request.files['profile']
         pwd = request.form['pwd']
         pwd2 = request.form['pwd2']
         uname = request.form['uname']
         email = request.form['email']
         addr = request.form['addr']
-        old_email = request.form['oldEmail']
 
         email_flag = False
         if '@' not in email:        # email 변경되지 않았으면
@@ -145,7 +147,7 @@ def update(uid):
         else:
             filename = old_filename
         
-        if email_flag:
+        if email_flag:                          # email 수정 X 이면 
             email = old_email
         params = (uname,hashed_pwd,email,filename,addr,uid)
         us.update_user(params)
@@ -162,12 +164,12 @@ def update(uid):
         else:
             return redirect('/user/list')
 
-@user_bp.route('/checkUid', methods=['GET'])
+@user_bp.route('/checkUid', methods=['GET'])        # update 화면에서 ajax로 중복여부 체크하기 위해
 def check_uid():
     uid = request.args.get('uid')
     return us.check_uid(uid)
 
-@user_bp.route('/list/<int:page>', methods=["GET"])
+@user_bp.route('/list/<int:page>', methods=["GET"])     # 로그인 안되어있으면 user_list 화면에 접근 못함
 def user_list(page):
     try:
         _ = session['uid']
