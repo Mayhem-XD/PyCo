@@ -9,7 +9,7 @@ pool = pooling.MySQLConnectionPool(pool_name="mypool", pool_size=3, **config)
 LIST_PER_PAGE = 10;		# 한 페이지당 글 목록의 개수
 PAGE_PER_SCREEN = 10;	# 한 화면에 표시되는 페이지 개수
 
-def get_board(bid):
+def get_board(bid):     # 단일 보드 가져옴
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = "SELECT b.bid, b.uid, b.title, b.content, b.modTime, b.viewCount, b.replyCount, b.files, u.uname \
@@ -20,7 +20,7 @@ def get_board(bid):
     conn.close()
     return row
 
-def get_board_list(field, query, page):
+def get_board_list(field, query, page):     # 보드 리스트 가져옴
     offset = (page - 1) * 10
     conn = pool.get_connection()
     cur = conn.cursor()
@@ -32,7 +32,7 @@ def get_board_list(field, query, page):
     conn.close()
     return row
 
-def get_board_count(field, query):
+def get_board_count(field, query):      # 게시글 개수 
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = "select count(bid) from board where isDeleted=0 AND %s like %s"
@@ -42,7 +42,7 @@ def get_board_count(field, query):
     conn.close()
     return row
 
-def insert_board(params):
+def insert_board(params):           # 게시글 생성
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = "insert into board values(default, %s, %s, %s, default, default, default, default, %s)"
@@ -53,7 +53,7 @@ def insert_board(params):
     conn.close()
     return row
 
-def update_board(params):
+def update_board(params):           # 게시글 수정
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = "update board set title=%s, content=%s, modTime=now(), files=%s where bid=%s"
@@ -64,7 +64,7 @@ def update_board(params):
     conn.close()
     return row
 
-def delete_board(bid):
+def delete_board(bid):              # 보드 삭제(isDelete field -> 1)
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = "UPDATE board SET isDeleted=1 WHERE bid=%s"
@@ -75,7 +75,7 @@ def delete_board(bid):
     conn.close()
     return row
 
-def increase_count(field,bid):
+def increase_count(field,bid):      # 조회수 증가(replyCount, viewCount 입력)
     conn = pool.get_connection()
     cur = conn.cursor()
     sql = f"UPDATE board SET {field}={field}+1 where bid = %s"
