@@ -10,8 +10,8 @@ LIST_PER_PAGE = 10;		# 한 페이지당 글 목록의 개수
 PAGE_PER_SCREEN = 10;	# 한 화면에 표시되는 페이지 개수
 
 def get_board(bid):     # 단일 보드 가져옴
-    conn = pool.get_connection()
-    cur = conn.cursor()
+    conn = pool.get_connection()    # connection
+    cur = conn.cursor()             # cursor
     sql = "SELECT b.bid, b.uid, b.title, b.content, b.modTime, b.viewCount, b.replyCount, b.files, u.uname \
         FROM board AS b JOIN users AS u ON b.uid=u.uid WHERE b.bid=%s"
     cur.execute(sql,(bid,))
