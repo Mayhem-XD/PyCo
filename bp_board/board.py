@@ -53,8 +53,10 @@ def detail(bid,uid):
         # 조회수 증가
         bs.increase_count('viewCount',bid=bid)
     board = bs.get_board(bid=bid)
+    # file_list = board('fileList') ?
     board = dict(zip(['bid', 'uid', 'title', 'content', 'modTime', 'viewCount', 'replyCount', 'files','uname'], board))
     # file는 나중에
+    # files list 가져와야함
 
     reply_list = rs.get_reply_list(bid=bid)
     reply_list = [dict(zip(['rid', 'comment', 'regTime', 'isMine', 'uid', 'bid', 'uname'], row)) for row in reply_list]
