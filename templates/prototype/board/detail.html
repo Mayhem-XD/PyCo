@@ -29,7 +29,7 @@
         <h6>글번호: {{ board['bid'] }} | {{ board['modTime'] }}</h6>
         <h6>첨부파일:
             {% for file in file_list %}
-                <a href="/file/download/{{ file }}" class="me-2" download>{{ file }}</a>
+                <a href="/file/download/{{ board['file'] }}" class="me-2" download>{{ board['file'] }}</a>
             {% endfor %}
         </h6>
     </div>
