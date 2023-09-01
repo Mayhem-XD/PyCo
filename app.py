@@ -8,6 +8,7 @@ from bp_python.python_func import user_bp_p
 from bp_open_api.open_api import user_bp_o
 from bp_board.board import user_bp_board
 from bp_reply.reply import user_bp_reply
+from bp_file_controller.file_controller import user_bp_file_controller
 
 app = Flask(__name__)
 
@@ -20,6 +21,7 @@ app.register_blueprint(user_bp_p,url_prefix='/python')
 app.register_blueprint(user_bp_o,url_prefix='/api')
 app.register_blueprint(user_bp_board,url_prefix='/board')
 app.register_blueprint(user_bp_reply,url_prefix='/reply')
+app.register_blueprint(user_bp_file_controller,url_prefix='/file')
 
 # for Error Handling ####################
 def page_not_found(e):
