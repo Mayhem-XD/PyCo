@@ -10,3 +10,10 @@ from PIL import Image
 import utils as ut
 user_bp_file_controller = Blueprint('user_bp_file_controller',__name__)
 upload_dir = "static"
+
+# download
+@user_bp_file_controller.route('/download/<file>', methods=['GET','POST'])
+def list(file):
+    # upload 한 파일 download
+    return None
+# upload
