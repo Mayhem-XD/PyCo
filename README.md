@@ -32,6 +32,7 @@
 ~~~ python
 
 # sql 연결문
+# dao, service
 
 ~~~
 
