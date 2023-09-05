@@ -27,7 +27,13 @@
 <h3> check update page </h3>
 
 
-프로젝트 코드 일부
+프로젝트 코드 일부  
+
+~~~ python
+
+# sql 연결문
+
+~~~
 
 ~~~ javascript
 <script>
