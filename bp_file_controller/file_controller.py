@@ -13,7 +13,7 @@ upload_dir = "static"
 
 # download
 @user_bp_file_controller.route('/download/<file>', methods=['GET','POST'])
-def list(file):
+def download_file(file):
     # upload 한 파일 download
     path = upload_dir + "upload/" + file
     try:
@@ -22,3 +22,13 @@ def list(file):
         print(e)
         return None
 # upload
+
+#profile
+@user_bp_file_controller.route('download/<file>', methods=['GET'])
+def profile_download(file):
+    path = upload_dir + "profile/" + file
+    try:
+        return send_file(path, as_attachment=True)
+    except Exception as e:
+        print(e)
+        return None
