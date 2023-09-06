@@ -1,4 +1,4 @@
-from flask import Blueprint , request, session, render_template
+from flask import Blueprint , request, session, render_template, send_file
 from flask import redirect, flash, url_for
 from datetime import datetime
 import json, hashlib, base64, math
@@ -15,5 +15,10 @@ upload_dir = "static"
 @user_bp_file_controller.route('/download/<file>', methods=['GET','POST'])
 def list(file):
     # upload 한 파일 download
-    return None
+    path = upload_dir + "upload/" + file
+    try:
+        return send_file(path, as_attachment=True)
+    except Exception as e:
+        print(e)
+        return None
 # upload
