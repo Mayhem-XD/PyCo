@@ -22,7 +22,7 @@ def download_file(file):
         print(e)
         return None
 # upload
-
+# image upload는 나중에
 #profile
 @user_bp_file_controller.route('download/<file>', methods=['GET'])
 def profile_download(file):
