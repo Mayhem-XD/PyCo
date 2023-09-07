@@ -20,7 +20,7 @@ def download_file(file):
         return send_file(path, as_attachment=True)
     except Exception as e:
         print(e)
-        return None
+        return "download_ERROR"
 # upload
 # image upload는 나중에
 #profile
@@ -31,4 +31,4 @@ def profile_download(file):
         return send_file(path, as_attachment=True)
     except Exception as e:
         print(e)
-        return None
+        return "profile_ERROR"
