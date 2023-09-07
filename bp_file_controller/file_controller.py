@@ -18,6 +18,8 @@ def download_file(file):
     path = upload_dir + "upload/" + file
     try:
         return send_file(path, as_attachment=True)
+    except FileExistsError as f:
+        return "file_Not_Exist"
     except Exception as e:
         print(e)
         return "download_ERROR"
