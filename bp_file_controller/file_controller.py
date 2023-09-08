@@ -19,10 +19,11 @@ def download_file(file):
     try:
         return send_file(path, as_attachment=True)
     except FileExistsError as f:
-        return "file_Not_Exist"
+        print(f)
+        return None
     except Exception as e:
         print(e)
-        return "download_ERROR"
+        return None
 # upload
 # image upload는 나중에
 #profile
