@@ -34,4 +34,4 @@ def profile_download(file):
         return send_file(path, as_attachment=True)
     except Exception as e:
         print(e)
-        return "profile_ERROR"
+        return None
