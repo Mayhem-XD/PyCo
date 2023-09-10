@@ -22,4 +22,5 @@ def expect_congestion():
     if request.method == 'GET':
         return render_template('',menu=menu,weather=get_weather(app),quote=session['quote'])
     else:
+        # ajax로 구현할 예정
         pass
