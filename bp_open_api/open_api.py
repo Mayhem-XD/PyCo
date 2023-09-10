@@ -16,3 +16,10 @@ def stn_rt_location():
         place = request.form['place']
         return ut.get_rtstnar_map(place)
 
+@user_bp_o.route('expect_congestion',methods=['GET','POST'])
+def expect_congestion():
+    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':0,'oa':1}
+    if request.method == 'GET':
+        return render_template('',menu=menu,weather=get_weather(app),quote=session['quote'])
+    else:
+        pass
