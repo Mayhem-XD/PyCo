@@ -14,7 +14,8 @@ def stn_rt_location():
         # return render_template('prototype/api/stn_rt_location.html',menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
     else:
         place = request.form['place']
-        return ut.get_rtstnar_map(place)
+        return ut.get_rtstnar_map(place)    # 이 부분 수정
+    # 여기도 ajax로 변경할 예정
 
 @user_bp_o.route('expect_congestion',methods=['GET','POST'])
 def expect_congestion():
