@@ -29,6 +29,14 @@ def park_status():
         pass
         # ajax 예정
 
-
+# pop_pd_smt
+@user_bp_p.route('/pop_pd_smt',methods=['GET','POST'])
+def pop_pd_smt():
+    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':0,'py':1}
+    if request.method == 'GET':
+        return render_template('', menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
+    else:
+        pass
+        # ajax 예정
 
 
