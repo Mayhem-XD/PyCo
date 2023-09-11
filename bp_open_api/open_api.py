@@ -25,3 +25,13 @@ def expect_congestion():
     else:
         # ajax로 구현할 예정
         pass
+
+# pop_pd
+@user_bp_o.route('pop_pd',methods=['GET','POST'])
+def pop_pd():
+    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':0,'oa':1}
+    if request.method == 'GET':
+        return render_template('',menu=menu,weather=get_weather(app),quote=session['quote'])
+    else:
+        # ajax로 구현할 예정
+        pass
