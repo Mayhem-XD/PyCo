@@ -30,6 +30,7 @@ def park_status():
         # ajax 예정
 
 # pop_pd_smt
+# 수정 될 듯
 @user_bp_p.route('/pop_pd_smt',methods=['GET','POST'])
 def pop_pd_smt():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':0,'py':1}
@@ -42,6 +43,7 @@ def pop_pd_smt():
         # 전달 파라메타 : 이미지
 
 # pop_pd
+# 다른 기능으로 대체될 예정
 @user_bp_p.route('pop_pd',methods=['GET','POST'])
 def pop_pd():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':0,'oa':1}
