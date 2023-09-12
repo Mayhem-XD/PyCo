@@ -38,6 +38,8 @@ def pop_pd_smt():
     else:
         pass
         # ajax 예정
+        # 입력 파라메타 : 시작일(년월일) 종료일(년월일) 호선 타겟시간
+        # 전달 파라메타 : 이미지
 
 # pop_pd
 @user_bp_p.route('pop_pd',methods=['GET','POST'])
