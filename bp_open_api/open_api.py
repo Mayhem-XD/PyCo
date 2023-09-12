@@ -24,6 +24,9 @@ def expect_congestion():
         return render_template('',menu=menu,weather=get_weather(app),quote=session['quote'])
     else:
         # ajax로 구현할 예정
+        # 전달 파라메타
+        # 입력 파라메타 : 장소 시간 분(10분 단위)
+        # 전달 파라메타 : 이미지 두개 (상행, 하행)
         pass
 
 # pop_pd
