@@ -27,5 +27,8 @@ def expect_congestion():
         # 전달 파라메타
         # 입력 파라메타 : 장소 시간 분(10분 단위)
         # 전달 파라메타 : 이미지 두개 (상행, 하행)
+        timep = request.form['timep']   # hh:mm
+        target = request.form['target']
+        pk.show_cong(timep=timep,target=target)
         pass
 
