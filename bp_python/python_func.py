@@ -1,6 +1,7 @@
 from flask import Blueprint , request, session, render_template, Flask
 from weather_util import get_weather
 import utils as ut
+import package as pk
 
 user_bp_p = Blueprint('user_bp_p',__name__)
 app = Flask(__name__)
@@ -37,10 +38,11 @@ def pop_pd_smt():
     if request.method == 'GET':
         return render_template('', menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
     else:
-        start_date = request.form['start_date']
-        end_date = request.form['end_date']
-        sub_line = request.form['sub_line']
-        target_time = request.form['target_time']
+        smonth = request.form['smonth']
+        emonth = request.form['emonth']
+        line = request.form['line']
+        target = request.form['target']
+        pk.show_heatmap(app=app,target=target,smonth=smonth,emonth=emonth)
         #
         pass
         # ajax 예정
