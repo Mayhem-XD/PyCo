@@ -37,6 +37,11 @@ def pop_pd_smt():
     if request.method == 'GET':
         return render_template('', menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
     else:
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        sub_line = request.form['sub_line']
+        target_time = request.form['target_time']
+        #
         pass
         # ajax 예정
         # 입력 파라메타 : 시작일(년월일) 종료일(년월일) 호선 타겟시간
