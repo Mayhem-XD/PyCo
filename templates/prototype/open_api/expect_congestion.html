@@ -1,0 +1,39 @@
+{% extends "prototype/01.base.html" %}
+{%block title%}Interpark Crawling{%endblock%}
+{% block weather %}{{weather|safe()}}{% endblock %}
+{% block additional_head %}
+<script>
+    function expect_cong() {
+        let palce = $('#input_line').val();
+        // 입력 부분 추가 예정
+
+        $.ajax({
+            type: 'POST',
+            url: '/expect_congestion',
+            data: { place: place},
+            success: function (show) {
+                $('#imageInput').attr('class','mt-2');
+                $('#up_line').attr({ "src": "{{url_for('static',filename='img/up_line.html')}}" });
+                $('#dn_line').attr({ "src": "{{url_for('static',filename='img/dn_line.html')}}" });
+            }
+
+        });
+    }
+</script>
+{% endblock %}
+{% block subtitle %}실시간 혼잡도{% endblock %}
+{%block content%}
+<form action="" method="post">
+    <table>
+        <input type="text" name="place" placeholder="ex) 수원역">
+        <!-- 입력 부분 추가 할 예정 -->
+        <input type="submit" value="제출" onclick="getStnInfo(); return false;">
+    </table>
+</form>
+<div class="mt-2 d-none" id="resDiv">
+    <iframe id="showmap" frameborder="1" width="800px" height="500px"></iframe>
+    <button onclick="location.href='/python/hotplace'">재실행</button>
+</div>
+
+    
+{%endblock%}
