@@ -42,8 +42,8 @@ def pop_pd_smt():
         emonth = request.form['emonth']
         line = request.form['line']
         target = request.form['target']
-        pk.show_heatmap(app=app,target=target,smonth=smonth,emonth=emonth)
-        #
+        pk.show_heatmap(app=app,target=target,smonth=smonth,emonth=emonth,line=line)
+        # return ???
         pass
         # ajax 예정
         # 입력 파라메타 : 시작일(년월일) 종료일(년월일) 호선 타겟시간
