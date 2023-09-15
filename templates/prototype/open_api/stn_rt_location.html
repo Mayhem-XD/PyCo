@@ -21,17 +21,42 @@
 {% endblock %}
 {% block subtitle %}실시간 역정보{% endblock %}
 {%block content%}
+<!-- jQuery time picker 파일 추가해야함 -->
 <form action="" method="post">
-    <table>
-        <input type="text" name="place" placeholder="ex) 수원역">
-        
-        <input type="submit" value="제출" onclick="getStnInfo(); return false;">
+    <table class="table table-borderless">
+        <tr>
+            <td style="width:35%"><label class="col-form-label">역 이름</label>
+            </td>
+            <td style="width:65%">
+                <input type="text" name="stn" id="input_stn" placeholder="조회할 역을 입력하세요(예: 강남역)">
+            </td>
+        </tr>
+        <tr>
+            <td><label class="col-form-label">시간</label></td>
+            <td style="width:65%">
+                <input type="text" class="timepicker" id="timep" name="timep" placeholder="조회할 시간">
+                <script>
+                    $(document).ready(function () {
+                        $('input.timepicker').timepicker({
+                            timeFormat: 'HH:mm',
+                            interval: 10,
+                            startTime: '04:00',
+                            dynamic: false,
+                            dropdown: true,
+                            scrollbar: true
+                        });
+                    });
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="submit" value="제출" onclick="send_val(); return false;">
+            </td>
+        </tr>
     </table>
 </form>
-<div class="mt-2 d-none" id="resDiv">
-    <iframe id="showmap" frameborder="1" width="800px" height="500px"></iframe>
-    <button onclick="location.href='/python/hotplace'">재실행</button>
-</div>
+
 
     
 {%endblock%}
