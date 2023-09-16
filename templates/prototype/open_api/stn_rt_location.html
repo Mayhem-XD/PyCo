@@ -19,7 +19,7 @@
 {% endblock %}
 {% block subtitle %}실시간 역정보{% endblock %}
 {%block content%}
-<!-- jQuery time picker 파일 추가해야함 -->
+
 <form action="" method="post">
     <table>
         <input type="text" name="place" placeholder="ex) 수원역">
@@ -29,7 +29,7 @@
 </form>
 <div class="mt-2 d-none" id="resDiv">
     <iframe id="showmap" frameborder="1" width="800px" height="500px"></iframe>
-    <button onclick="location.href='/python/hotplace'">재실행</button>
+    <button onclick="location.href='/api/stn_rt_location'">재실행</button>
 </div>
 
 {%endblock%}
