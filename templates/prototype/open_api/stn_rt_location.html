@@ -2,6 +2,7 @@
 {%block title%}Interpark Crawling{%endblock%}
 {% block weather %}{{weather|safe()}}{% endblock %}
 {% block additional_head %}
+<!-- ajax 나중에 분리해야함 -->
 <script>
     function getStnInfo() {
         let palce = $('#input_line').val();
