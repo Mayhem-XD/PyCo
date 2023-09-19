@@ -30,6 +30,8 @@ def park_status():
     if request.method == 'GET':
         return render_template('', menu=menu,weather=get_weather(app),quote=session['quote'],addr=session['addr'])
     else:
+        # 입력 파라메타 : 지역
+        # 전달 파라메타 : 이미지
         pass
         # ajax 예정
 
