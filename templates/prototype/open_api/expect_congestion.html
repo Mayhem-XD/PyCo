@@ -65,14 +65,16 @@
 </form>
 <!-- 아래 코드가 지하철 이미지(웹 기본 이미지로 사용 예정) -->
 <div class="">
-    <div class="col-md-6" id="init_img"><img class="card-img-top mb-5 mb-md-0"
-        src="../static/img/subway_main.png" alt="subway" />
+    <!-- 가려 질 부분 -->
+    <div class="col-md-6" id="init_img">    
+        <img class="card-img-top mb-5 mb-md-0" src="../static/img/subway_main.png" alt="subway" />
     </div>
+    <!-- 보여 주는 부분 -->
     <div class="col-md-6" id="show_img" style="display: none;">
         <p>하행</p><br>
-        <iframe frameborder="1" width="600" height="300" id="i1"></iframe></br>
+            <iframe frameborder="1" width="600" height="300" id="i1"></iframe></br>
         <p>상행</p><br>
-        <iframe  frameborder="1" width="600" height="300" id="i2"></iframe>
+            <iframe  frameborder="1" width="600" height="300" id="i2"></iframe>
     </div>
 </div>
 
