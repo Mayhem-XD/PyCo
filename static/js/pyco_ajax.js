@@ -18,3 +18,15 @@ function send_val() {
     });
 }
 
+function getStnInfo() {
+    let palce = $('#input_line').val();
+    $.ajax({
+        type: 'POST',
+        url: '/stn_rt_location',
+        data: { place: place},
+        success: function (show) {
+            $('#imageInput').attr('class','mt-2');
+            $('#showmap').attr({ "src": "{{url_for('static',filename='img/rtstn.html')}}" });
+        }
+    });
+}
