@@ -1,3 +1,4 @@
+// ###################### open_api ##########################
 function send_val() {
     let timep = $('#timep').val();
     let stn = $('#input_stn').val()
@@ -12,9 +13,7 @@ function send_val() {
             let up = result.up;
             $('#i1').attr('src', '/static/img/stage_'+dn+'.png');
             $('#i2').attr('src', '/static/img/stage_'+up+'.png');
-
         }
-
     });
 }
 
@@ -30,3 +29,4 @@ function getStnInfo() {
         }
     });
 }
+// ################################################################
