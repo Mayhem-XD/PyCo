@@ -4,7 +4,7 @@ function send_val() {
     let stn = $('#input_stn').val()
     $.ajax({
         type: 'POST',
-        url: '/' ,      // 주소 추가해야함
+        url: '/api/stn_rt_location' ,      // 주소 추가해야함
         data: { timep: timep, stn: stn},
         success: function (result) {
             $('#init_img').css('display', 'none');
@@ -21,7 +21,7 @@ function getStnInfo() {
     let palce = $('#input_line').val();
     $.ajax({
         type: 'POST',
-        url: '/stn_rt_location',
+        url: '/api/stn_rt_location',
         data: { place: place},
         success: function (show) {
             $('#imageInput').attr('class','mt-2');
