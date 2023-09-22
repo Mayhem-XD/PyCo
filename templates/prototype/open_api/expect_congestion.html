@@ -9,7 +9,7 @@
         let stn = $('#input_stn').val()
         $.ajax({
             type: 'POST',
-            url: '/' ,      // 주소 추가해야함
+            url: '/api/expect_congestion' ,      // 주소 추가해야함
             data: { timep: timep, stn: stn},
             success: function (result) {
                 $('#init_img').css('display', 'none');

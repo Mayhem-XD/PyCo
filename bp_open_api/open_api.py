@@ -15,7 +15,6 @@ def stn_rt_location():
     else:
         place = request.form['place']
         return ut.get_rtstnar_map(place)    # 이 부분 수정
-    # 여기도 ajax로 변경할 예정
 
 @user_bp_o.route('expect_congestion',methods=['GET','POST'])
 def expect_congestion():
@@ -23,8 +22,6 @@ def expect_congestion():
     if request.method == 'GET':
         return render_template('',menu=menu,weather=get_weather(app),quote=session['quote'])
     else:
-        # 입력 파라메타 : 장소 시간 분(10분 단위)
-        # 전달 파라메타 : 이미지 두개 (상행, 하행)
         timep = request.form['timep']   # hh:mm
         target = request.form['target']
         dn, up = pk.show_cong(timep=timep,target=target)
