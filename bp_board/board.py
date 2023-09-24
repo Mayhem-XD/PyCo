@@ -126,6 +126,7 @@ def update(bid):
             for file in files:
                 if file.filename == '':
                     # filename 없을 경우 수정 해아함
+                    # 기존 사용? 
                     print('file이름 없음')
                 if file:
                     # 기존 업로드한 파일 삭제하는 코드 추가해야함
@@ -134,8 +135,7 @@ def update(bid):
                     filenames.append(filename)
             filenames_json = json.dumps(filenames)
         ######################################
-        # files 나중에
-        # files = '{"list":[]}'
+        
         params = (title,content,filenames_json,bid)
         bs.update_board(params=params)
 
