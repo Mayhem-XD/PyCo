@@ -36,5 +36,8 @@ def siksin():
     # 여기도 ajax로 수정 예정
     # 받는 파라메타
     # place
+    # place = request.form['place']
+    # siksin_list = ut.siksin_search(plce)
     # 주는 파라메타
     # 이미지, 상호명, 점수, 위치, 메뉴
+    # siksin_list
