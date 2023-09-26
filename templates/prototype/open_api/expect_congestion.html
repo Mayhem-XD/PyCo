@@ -12,12 +12,20 @@
             url: '/api/expect_congestion' ,      // 주소 추가해야함
             data: { timep: timep, stn: stn},
             success: function (result) {
-                $('#init_img').css('display', 'none');
-                $('#show_img').css('display', 'block');
-                let dn = result.dn;
-                let up = result.up;
-                $('#i1').attr('src', '/static/img/stage_'+dn+'.png');
-                $('#i2').attr('src', '/static/img/stage_'+up+'.png');
+                $('#siksin_table').css('display', 'block');
+
+                let table = $("#siksin_table .table");
+                for (let i = 0; i < result.length; i++) {
+                    let siksin = result[i];
+                    let row = "<tr>" +
+                        "<td><img src='" + siksin.img + "' height='50px'></td>" +
+                        "<td>" + siksin.title + "</td>" +
+                        "<td>" + siksin.score + "</td>" +
+                        "<td>" + siksin.location + "</td>" +
+                        "<td>" + siksin.menu + "</td>" +
+                        "</tr>";
+                    table.append(row);
+            }
 
             }
 
