@@ -10,6 +10,7 @@
             url: '/crawling/siksin' ,
             data: { place : place},
             success: function (result) {
+                $('#siksinTable').css('display', 'block'); 
                 let table = $(".siksinTable");
             for (let i = 0; i < result.length; i++) {
                 let siksin = result[i];
