@@ -10,7 +10,7 @@
             url: '/crawling/siksin' ,
             data: { place : place},
             success: function (result) {
-                let table = $(".table");
+                let table = $(".siksinTable");
             for (let i = 0; i < result.length; i++) {
                 let siksin = result[i];
                 let row = "<tr>" +
@@ -50,4 +50,13 @@
             </tr>
         </table>
     </form>
+    <table class="table table-borderless" style="margin-bottom: 100px; margin-top: 100px;" id="siksinTable" style="display: none;">
+        <tr><hr>
+            <th>이미지</th>
+            <th>상호명</th>
+            <th>점수</th>
+            <th>위치</th>
+            <th>메뉴</th>
+        </tr>
+    </table>
 {%endblock%}
