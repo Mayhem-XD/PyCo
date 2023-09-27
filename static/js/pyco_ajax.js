@@ -30,3 +30,29 @@ function getStnInfo() {
     });
 }
 // ################################################################
+// ##################### crawling #################################
+function ss_search() {
+    let place = $('#place').val();
+    $.ajax({
+        type: 'POST',
+        url: '/crawling/siksin' ,
+        data: { place : place},
+        success: function (result) {
+            $('#siksinTable').css('display', 'block'); 
+            let table = $(".siksinTable");
+        for (let i = 0; i < result.length; i++) {
+            let siksin = result[i];
+            let row = "<tr>" +
+                "<td><img src='" + siksin.img + "' height='50px'></td>" +
+                "<td>" + siksin.title + "</td>" +
+                "<td>" + siksin.score + "</td>" +
+                "<td>" + siksin.location + "</td>" +
+                "<td>" + siksin.menu + "</td>" +
+                "</tr>";
+            table.append(row);
+        }
+        }
+    });
+}
+
+// ##################################################################
