@@ -9,8 +9,8 @@
 > MySQL DB 연동<br>
 > 게시판, 댓글, api, <br>
 > Ajax로 기능 수정예정 <br>
-> 튜플로 받아온 xxxxx_list dict로 변경
-> 
+> 튜플로 받아온 xxxxx_list dict로 변경 <br>  
+> oracle DB 추가 예정 <br>  
 <h3>개발 과정</h3>
 
 >   * 협업툴<br>
