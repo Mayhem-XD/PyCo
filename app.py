@@ -90,6 +90,7 @@ def schedule():
             flash('스케줄을 확인하려면 로그인하여야 합니다.')
             return redirect('/user/login')
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
+    # schedule 만들어서 적용 예정
     return render_template('prototype/02.schedule.html',menu=menu, weather=get_weather(app),quote=quote,addr=addr)
 
 @app.route('/self_intr') # 삭제될 부분
