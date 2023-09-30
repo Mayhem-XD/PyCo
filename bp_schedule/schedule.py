@@ -8,7 +8,10 @@ import os
 from weather_util import get_weather
 from PIL import Image
 import utils as ut
-user_bp = Blueprint('user_bp',__name__)
+user_bp_schedule = Blueprint('user_bp_schedule',__name__)
 app = Flask(__name__)
 upload_dir = "static"
 
+@user_bp_schedule.route('/test', methods=['GET','POST'])
+def test():
+    pass
