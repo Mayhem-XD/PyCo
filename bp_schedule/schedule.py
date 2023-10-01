@@ -27,3 +27,6 @@ def delete(sid):
 @user_bp_schedule.route('/update', methods=['GET','POST'])
 def update():
     pass
+@user_bp_schedule.route('/insert_anniv', methods=['GET','POST'])
+def insert_anniv():
+    pass
