@@ -15,3 +15,6 @@ upload_dir = "static"
 @user_bp_schedule.route('/test', methods=['GET','POST'])
 def test():
     pass
+@user_bp_schedule.route('/insert', methods=['GET','POST'])
+def insert():
+    pass
