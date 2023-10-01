@@ -18,3 +18,7 @@ def test():
 @user_bp_schedule.route('/insert', methods=['GET','POST'])
 def insert():
     pass
+@user_bp_schedule.route('/detail/<sid>', methods=['GET','POST'])
+def detail(sid):
+    pass
+
