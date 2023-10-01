@@ -21,4 +21,9 @@ def insert():
 @user_bp_schedule.route('/detail/<sid>', methods=['GET','POST'])
 def detail(sid):
     pass
-
+@user_bp_schedule.route('/delete/<sid>', methods=['GET','POST'])
+def delete(sid):
+    pass
+@user_bp_schedule.route('/update', methods=['GET','POST'])
+def update():
+    pass
