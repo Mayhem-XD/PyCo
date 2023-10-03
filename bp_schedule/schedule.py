@@ -1,5 +1,5 @@
 from flask import Blueprint , request, session, render_template, Flask
-from flask import redirect, flash
+from flask import redirect, flash, url_for
 from datetime import datetime
 import db.user_service as us
 import json, hashlib, base64, math
@@ -20,19 +20,27 @@ def test():
         flash('스케줄을 확인하려면 로그인하여야 합니다.')
         return redirect('/user/login')
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
-    return render_template('/my_schedule/schedule.html',menu=menu, weather=get_weather(app))
+    return render_template('/prototype/my_schedule/schedule.html',menu=menu, weather=get_weather(app))
 @user_bp_schedule.route('/insert', methods=['GET','POST'])
 def insert():
     pass
+
 @user_bp_schedule.route('/detail/<sid>', methods=['GET','POST'])
 def detail(sid):
     pass
+
 @user_bp_schedule.route('/delete/<sid>', methods=['GET','POST'])
 def delete(sid):
-    pass
+    return render_template('/prototype/my_schedule/delete.html',sid=sid)
+
+@user_bp_schedule.route('/delete_confirm/<sid>', methods=['GET'])
+def delete_confirm(sid):
+    return redirect(url_for('user_bp_schedule.list'))
+
 @user_bp_schedule.route('/update', methods=['GET','POST'])
 def update():
     pass
+
 @user_bp_schedule.route('/insert_anniv', methods=['GET','POST'])
 def insert_anniv():
     pass
