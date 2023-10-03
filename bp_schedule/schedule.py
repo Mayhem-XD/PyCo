@@ -14,6 +14,10 @@ upload_dir = "static"
 
 @user_bp_schedule.route('/test', methods=['GET','POST'])
 def test():
+    if request.method == 'GET':
+        return render_template("/")
+    else:
+        test = request.form['test']
     pass
 @user_bp_schedule.route('/insert', methods=['GET','POST'])
 def insert():
