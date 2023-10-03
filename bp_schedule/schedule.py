@@ -14,11 +14,13 @@ upload_dir = "static"
 
 @user_bp_schedule.route('/test', methods=['GET','POST'])
 def test():
-    if request.method == 'GET':
-        return render_template("/")
-    else:
-        test = request.form['test']
-    pass
+    try:
+        _ = session['uid']
+    except:
+        flash('스케줄을 확인하려면 로그인하여야 합니다.')
+        return redirect('/user/login')
+    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
+    return render_template('/my_schedule/schedule.html',menu=menu, weather=get_weather(app))
 @user_bp_schedule.route('/insert', methods=['GET','POST'])
 def insert():
     pass
