@@ -23,7 +23,11 @@ def test():
     return render_template('/prototype/my_schedule/schedule.html',menu=menu, weather=get_weather(app))
 @user_bp_schedule.route('/insert', methods=['GET','POST'])
 def insert():
-    pass
+    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
+    if request.method == 'GET':
+        return render_template('/prototype/my_schedule/insert.html',menu=menu, weather=get_weather(app))
+    else:
+        pass
 
 @user_bp_schedule.route('/detail/<sid>', methods=['GET','POST'])
 def detail(sid):
