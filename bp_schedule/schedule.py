@@ -37,7 +37,7 @@ def detail(sid):
     else:
         pass
 
-@user_bp_schedule.route('/delete/<sid>', methods=['GET','POST'])
+@user_bp_schedule.route('/delete/<sid>', methods=['GET'])
 def delete(sid):
     return render_template('/prototype/my_schedule/delete.html',sid=sid)
 
