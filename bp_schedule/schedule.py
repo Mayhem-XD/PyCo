@@ -48,7 +48,16 @@ def delete_confirm(sid):
 
 @user_bp_schedule.route('/update', methods=['GET','POST'])
 def update():
-    pass
+    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
+    if request.method == 'GET':
+        return render_template('/prototype/my_schedule/update.html',menu=menu, weather=get_weather(app))
+    else:
+        sid = request.form['sid']
+        title = request.form['title']
+        start_date = request.form['start_date']
+        start_time = request.form['start_time']
+        end_date = request.form['end_date']
+        end_time = request.form['end_time']
 
 @user_bp_schedule.route('/insert_anniv', methods=['GET','POST'])
 def insert_anniv():
