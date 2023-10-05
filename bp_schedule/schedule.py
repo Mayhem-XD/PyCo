@@ -52,6 +52,7 @@ def update():
     if request.method == 'GET':
         return render_template('/prototype/my_schedule/update.html',menu=menu, weather=get_weather(app))
     else:
+        is_important =   0 if request.form['important']==None else 1 
         sid = request.form['sid']
         title = request.form['title']
         start_date = request.form['start_date']
@@ -61,7 +62,11 @@ def update():
         place = request.form['place']
         memo = request.form['memo']
         s_date = start_date.replace('-','')
+        start_date_time = f"{start_date}T{start_time}:00"
+        end_date_time = f"{end_date}T{start_time}:00"
         uid = session['uid']
+        params = (sid, uid, s_date, title, start_date_time, end_date_time, place, memo)
+
 
 @user_bp_schedule.route('/insert_anniv', methods=['GET','POST'])
 def insert_anniv():
