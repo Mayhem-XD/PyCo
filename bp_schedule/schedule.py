@@ -58,6 +58,10 @@ def update():
         start_time = request.form['start_time']
         end_date = request.form['end_date']
         end_time = request.form['end_time']
+        place = request.form['place']
+        memo = request.form['memo']
+        s_date = start_date.replace('-','')
+        uid = session['uid']
 
 @user_bp_schedule.route('/insert_anniv', methods=['GET','POST'])
 def insert_anniv():
