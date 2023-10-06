@@ -48,7 +48,20 @@ def delete_confirm(sid):
 
 @user_bp_schedule.route('/insert', methods=['POST'])
 def insert():
-    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
+    is_important = 0 if request.form['is_important'] == None else 1
+    sid = request.form['sid']
+    title = request.form['title']
+    start_date = request.form['start_date']
+    start_time = request.form['start_time']
+    end_date = request.form['end_date']
+    end_time = request.form['end_time']
+    place = request.form['place']
+    memo = request.form['memo']
+    s_date = start_date.replace('-','')
+    start_date_time = f"{start_date}T{start_time}:00"
+    end_date_time = f"{end_date}T{start_time}:00"
+    uid = session['uid']
+    params = (sid, uid, s_date, title, place, start_date_time, end_date_time, memo)
 
 
 
@@ -71,7 +84,10 @@ def update():
         start_date_time = f"{start_date}T{start_time}:00"
         end_date_time = f"{end_date}T{start_time}:00"
         uid = session['uid']
-        params = (sid, uid, s_date, title, start_date_time, end_date_time, place, memo)
+        params = (sid, uid, s_date, title, place, start_date_time, end_date_time, memo)
+        # schedule_service.insert(params)
+        # return redirect(url_for('user_bp_schedule.calendar'))
+
 
 
 @user_bp_schedule.route('/insert_anniv', methods=['POST'])
