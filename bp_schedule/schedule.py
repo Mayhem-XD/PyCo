@@ -68,6 +68,8 @@ def update():
         params = (sid, uid, s_date, title, start_date_time, end_date_time, place, memo)
 
 
-@user_bp_schedule.route('/insert_anniv', methods=['GET','POST'])
+@user_bp_schedule.route('/insert_anniv', methods=['POST'])
 def insert_anniv():
-    pass
+    aname = request.form['aname']
+    is_holiday = 0 if request.form['is_holiday'] == None else 1
+    adate = request.form['adate'].replace("-",'')
