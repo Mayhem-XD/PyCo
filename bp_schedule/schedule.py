@@ -46,6 +46,12 @@ def delete_confirm(sid):
     # ut.delete(sid)
     return redirect(url_for('user_bp_schedule.list'))
 
+@user_bp_schedule.route('/insert', methods=['POST'])
+def insert():
+    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
+
+
+
 @user_bp_schedule.route('/update', methods=['GET','POST'])
 def update():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
