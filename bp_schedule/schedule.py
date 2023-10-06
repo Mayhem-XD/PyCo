@@ -73,3 +73,6 @@ def insert_anniv():
     aname = request.form['aname']
     is_holiday = 0 if request.form['is_holiday'] == None else 1
     adate = request.form['adate'].replace("-",'')
+    params = (aname, is_holiday, adate)
+    # anniv_service.insert(params)
+    # return redirect(url_for('user_bp_schedule.calendar'))
