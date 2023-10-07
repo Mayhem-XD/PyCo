@@ -1,5 +1,5 @@
 from flask import Blueprint , request, session, render_template, Flask
-from flask import redirect, flash, url_for
+from flask import redirect, flash, url_for, jsonify
 from datetime import datetime
 import db.user_service as us
 import json, hashlib, base64, math
@@ -8,6 +8,7 @@ import os
 from weather_util import get_weather
 from PIL import Image
 import utils as ut
+import db.schedule_service as sched
 user_bp_schedule = Blueprint('user_bp_schedule',__name__)
 app = Flask(__name__)
 upload_dir = "static"
@@ -26,7 +27,16 @@ def test():
 def detail(sid):
     # sched = sched_service.get_schedule(sid)
     # jsched = 
-    pass
+    jSched = {
+        "sid": sid,
+        "title": sched.get_title(),
+        "place": sched.get_place(),
+        "startTime": str(sched.get_start_time()),
+        "endTime": str(sched.get_end_time()),
+        "isImportant": sched.get_is_important(),
+        "memo": sched.get_memo()
+    }
+    return jsonify(jSched)
 
 @user_bp_schedule.route('/delete/<sid>', methods=['GET'])
 def delete(sid):
