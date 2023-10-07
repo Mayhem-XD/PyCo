@@ -21,21 +21,12 @@ def test():
         return redirect('/user/login')
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
     return render_template('/prototype/my_schedule/schedule.html',menu=menu, weather=get_weather(app))
-@user_bp_schedule.route('/insert', methods=['GET','POST'])
-def insert():
-    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
-    if request.method == 'GET':
-        return render_template('/prototype/my_schedule/insert.html',menu=menu, weather=get_weather(app))
-    else:
-        pass
 
-@user_bp_schedule.route('/detail/<sid>', methods=['GET','POST'])
+@user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
-    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
-    if request.method == 'GET':
-        return render_template('/prototype/my_schedule/detail.html',menu=menu, weather=get_weather(app))
-    else:
-        pass
+    # sched = sched_service.get_schedule(sid)
+    # jsched = 
+    pass
 
 @user_bp_schedule.route('/delete/<sid>', methods=['GET'])
 def delete(sid):
