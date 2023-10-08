@@ -25,16 +25,16 @@ def test():
 
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
-    # sched = sched_service.get_schedule(sid)
+    schedule = sched.get_schedule(sid)
     # jsched = 
     jSched = {
         "sid": sid,
-        "title": sched.get_title(),
-        "place": sched.get_place(),
-        "startTime": str(sched.get_start_time()),
-        "endTime": str(sched.get_end_time()),
-        "isImportant": sched.get_is_important(),
-        "memo": sched.get_memo()
+        "title": schedule['title'],
+        "place": schedule['place'],
+        "startTime": schedule['startTime'],
+        "endTime": schedule['endTime'],
+        "isImportant": schedule['isImportant'],
+        "memo": schedule['memo']
     }
     return jsonify(jSched)
 
