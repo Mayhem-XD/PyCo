@@ -15,8 +15,15 @@ def get_schedule(sid):
     cur.close()
     conn.close()
     return row
-def get_place():
-    pass
+def get_sched_list(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "SELECT * FROM schedule WHERE uid=%s and sdate >= %s and sdate <= %s"
+    cur.execute(sql,params)
+    rows = cur.fetchall()
+    cur.close()
+    conn.close()
+    return rows
 def get_start_time():
     pass
 def get_end_time():
