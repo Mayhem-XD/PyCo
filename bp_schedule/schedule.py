@@ -26,7 +26,6 @@ def test():
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
     schedule = sched.get_schedule(sid)
-    # jsched = 
     jSched = {
         "sid": sid,
         "title": schedule['title'],
