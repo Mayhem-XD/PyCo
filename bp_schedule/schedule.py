@@ -28,17 +28,16 @@ def detail(sid):
     schedule = sched.get_schedule(sid)
     schedule_list = [dict(zip(['sid', 'title', 'place', 'startTime', 'endTime', 'isImportant', 'memo'], sch)) for sch in schedule_list]
 
-
-    jSched = {
-        "sid": sid,
-        "title": schedule['title'],
-        "place": schedule['place'],
-        "startTime": schedule['startTime'],
-        "endTime": schedule['endTime'],
-        "isImportant": schedule['isImportant'],
-        "memo": schedule['memo']
-    }
-    return jsonify(jSched)
+    # jSched = {
+    #     "sid": sid,
+    #     "title": schedule['title'],
+    #     "place": schedule['place'],
+    #     "startTime": schedule['startTime'],
+    #     "endTime": schedule['endTime'],
+    #     "isImportant": schedule['isImportant'],
+    #     "memo": schedule['memo']
+    # }
+    return jsonify(schedule_list)
 
 @user_bp_schedule.route('/delete/<sid>', methods=['GET'])
 def delete(sid):
