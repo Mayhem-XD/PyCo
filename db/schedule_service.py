@@ -33,4 +33,12 @@ def get_is_important():
 def get_memo():
     pass
 def insert(params):
-    pass
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "INSERT INTO schedule VALUES (default, %s, %s, %s, %s, %s, %s, %s, %s)"
+    cur.execute(sql,params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
