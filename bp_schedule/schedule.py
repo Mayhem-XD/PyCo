@@ -55,7 +55,7 @@ def insert():
     end_date_time = f"{end_date}T{end_time}:00"
     uid = session['uid']
     params = (sid, uid, s_date, title, place, start_date_time, end_date_time, memo, is_important)
-    # sched.insert(params)
+    sched.insert(params)
     return redirect(url_for('user_bp_schedule.list'))
     
 
