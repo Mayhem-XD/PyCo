@@ -78,9 +78,9 @@ def update():
         memo = request.form['memo']
         s_date = start_date.replace('-','')
         start_date_time = f"{start_date}T{start_time}:00"
-        end_date_time = f"{end_date}T{start_time}:00"
+        end_date_time = f"{end_date}T{end_time}:00"
         uid = session['uid']
-        params = (sid, uid, s_date, title, place, start_date_time, end_date_time, memo)
+        params = ( title, s_date, start_date_time, end_date_time, place, memo, is_important, sid, uid)
         # schedule_service.insert(params)
         # return redirect(url_for('user_bp_schedule.calendar'))
 
