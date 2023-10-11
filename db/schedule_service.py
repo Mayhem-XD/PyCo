@@ -42,3 +42,13 @@ def insert(params):
     cur.close()
     conn.close()
     return row
+def update(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "update board set title=%s, s_date=%s, start_date_time=%s, end_date_time=%s, place=%s, memo=%s, is_important=%s where sid=%s and uid=%s"
+    cur.execute(sql,params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
