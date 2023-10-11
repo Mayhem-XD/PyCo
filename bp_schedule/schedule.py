@@ -81,8 +81,8 @@ def update():
         end_date_time = f"{end_date}T{end_time}:00"
         uid = session['uid']
         params = ( title, s_date, start_date_time, end_date_time, place, memo, is_important, sid, uid)
-        # schedule_service.insert(params)
-        # return redirect(url_for('user_bp_schedule.calendar'))
+        sched.update(params)
+        return redirect(url_for('user_bp_schedule.calendar'))
 
 
 
