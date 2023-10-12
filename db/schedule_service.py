@@ -15,6 +15,7 @@ def get_schedule(sid):
     cur.close()
     conn.close()
     return row
+
 def get_sched_list(params):
     conn = pool.get_connection()
     cur = conn.cursor()
@@ -24,6 +25,7 @@ def get_sched_list(params):
     cur.close()
     conn.close()
     return rows
+
 def delete(sid):
     conn = pool.get_connection()
     cur = conn.cursor()
@@ -34,12 +36,23 @@ def delete(sid):
     cur.close()
     conn.close()
     return row
-def get_end_time():
-    pass
+
+def get_schedule_count(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "select count(sid) from schedule where uid= %s and sdate >= %s order by startTime"
+    cur.execute(sql, params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
+
 def get_is_important():
     pass
 def get_memo():
     pass
+
 def insert(params):
     conn = pool.get_connection()
     cur = conn.cursor()
@@ -50,6 +63,7 @@ def insert(params):
     cur.close()
     conn.close()
     return row
+
 def update(params):
     conn = pool.get_connection()
     cur = conn.cursor()
