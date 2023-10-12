@@ -24,8 +24,16 @@ def get_sched_list(params):
     cur.close()
     conn.close()
     return rows
-def get_start_time():
-    pass
+def delete(sid):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "delete from schedule where sid= %s"
+    cur.execute(sql,(sid,))
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
 def get_end_time():
     pass
 def get_is_important():
