@@ -48,8 +48,17 @@ def get_schedule_count(params):
     conn.close()
     return row
 
-def get_is_important():
-    pass
+def get_schedule_list_by_page(params):
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "select * from schedule where uid= %s and sdate >= %s order by startTime LIMIT 15 offset %s"
+    cur.execute(sql, params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
+
 def get_memo():
     pass
 
