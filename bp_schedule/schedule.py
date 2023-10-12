@@ -36,7 +36,7 @@ def delete(sid):
 
 @user_bp_schedule.route('/delete_confirm/<sid>', methods=['GET'])
 def delete_confirm(sid):
-    # ut.delete(sid)
+    sched.delete(sid)
     return redirect(url_for('user_bp_schedule.list'))
 
 @user_bp_schedule.route('/insert', methods=['POST'])
