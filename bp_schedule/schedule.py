@@ -9,6 +9,7 @@ from weather_util import get_weather
 from PIL import Image
 import utils as ut
 import db.schedule_service as sched
+import db.anni_service as anniv
 user_bp_schedule = Blueprint('user_bp_schedule',__name__)
 app = Flask(__name__)
 upload_dir = "static"
@@ -84,13 +85,11 @@ def update():
         sched.update(params)
         return redirect(url_for('user_bp_schedule.calendar'))
 
-
-
 @user_bp_schedule.route('/insert_anniv', methods=['POST'])
 def insert_anniv():
     aname = request.form['aname']
     is_holiday = 0 if request.form['is_holiday'] == None else 1
     adate = request.form['adate'].replace("-",'')
     params = (aname, is_holiday, adate)
-    # anniv_service.insert(params)
-    # return redirect(url_for('user_bp_schedule.calendar'))
+    anniv.insert(params)
+    return redirect(url_for('user_bp_schedule.calendar'))
