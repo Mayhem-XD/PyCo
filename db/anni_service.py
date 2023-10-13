@@ -16,4 +16,12 @@ def get_anniv_list(params):
     return rows
 
 def insert(params):
-    pass
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "INSERT INTO anniversary VALUES (default, %s, %s, %s)"
+    cur.execute(sql,params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
