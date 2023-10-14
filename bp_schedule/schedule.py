@@ -34,6 +34,9 @@ def calendar():
         # year = today.get_year()
         # month = today.getMonthValue()
         pass
+    else:
+        year = session_month_year[:4]
+        month = session_month_year[5:]
 
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
