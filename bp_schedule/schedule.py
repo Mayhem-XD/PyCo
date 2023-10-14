@@ -30,7 +30,10 @@ def calendar():
     date = '일 월 화 수 목 금 토'.split(' ')
     year, month = 2000, 1
     session_month_year = session['scheduleMonthYear']
-
+    if session_month_year == None or session_month_year == "":
+        # year = today.get_year()
+        # month = today.getMonthValue()
+        pass
 
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
