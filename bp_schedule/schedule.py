@@ -24,6 +24,13 @@ def test():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
     return render_template('/prototype/my_schedule/schedule.html',menu=menu, weather=get_weather(app))
 
+@user_bp_schedule.route('/calendar', methods=['GET'])
+def calendar():
+    # local_date = datetime.now()
+    pass
+
+
+
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
     schedule_list = sched.get_schedule(sid)
@@ -59,9 +66,6 @@ def insert():
     sched.insert(params)
     return redirect(url_for('user_bp_schedule.list'))
     
-
-
-
 @user_bp_schedule.route('/update', methods=['GET','POST'])
 def update():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
