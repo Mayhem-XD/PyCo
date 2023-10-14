@@ -27,8 +27,9 @@ def test():
 @user_bp_schedule.route('/calendar', methods=['GET'])
 def calendar():
     # local_date = datetime.now()
-    pass
-
+    date = '일 월 화 수 목 금 토'.split(' ')
+    year, month = 2000, 1
+    session_month_year = session['scheduleMonthYear']
 
 
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
