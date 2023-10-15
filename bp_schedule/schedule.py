@@ -28,12 +28,29 @@ def test():
 def calendar():
     date = '일 월 화 수 목 금 토'.split(' ')[datetime.today().weekday()]
     year, month = 2000, 1
+    arrow = session['arrow']
     session_month_year = session['scheduleMonthYear']
     if session_month_year:
         year = int(session_month_year[:4])
         month = int(session_month_year[5:])
     else:
         year, month = map(int, session['month_year'].split('-'))
+
+    if arrow is not None:
+        if arrow == "left":
+            month -= 1
+            if month == 0:
+                month = 12
+                year -= 1
+        elif arrow == "right":
+            month += 1
+            if month == 13:
+                month = 1
+                year += 1
+        elif arrow == "left2":
+            year -= 1
+        elif arrow == "right2":
+            year += 1
 
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
