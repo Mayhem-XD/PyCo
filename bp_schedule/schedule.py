@@ -26,17 +26,14 @@ def test():
 
 @user_bp_schedule.route('/calendar', methods=['GET'])
 def calendar():
-    # local_date = datetime.now()
-    date = '일 월 화 수 목 금 토'.split(' ')
+    date = '일 월 화 수 목 금 토'.split(' ')[datetime.today().weekday()]
     year, month = 2000, 1
     session_month_year = session['scheduleMonthYear']
-    if session_month_year == None or session_month_year == "":
-        # year = today.get_year()
-        # month = today.getMonthValue()
-        pass
+    if session_month_year:
+        year = int(session_month_year[:4])
+        month = int(session_month_year[5:])
     else:
-        year = session_month_year[:4]
-        month = session_month_year[5:]
+        year, month = map(int, session['month_year'].split('-'))
 
 @user_bp_schedule.route('/detail/<sid>', methods=['GET'])
 def detail(sid):
