@@ -142,6 +142,36 @@ def login():
 
 ~~~
 
+~~~ python
+
+
+# 파이썬에서 SQL 사용하는 방법
+import json, hashlib, base64
+from mysql.connector import pooling
+
+with open('./mysql.json') as f:
+    config_str = f.read()
+config = json.loads(config_str)
+pool = pooling.MySQLConnectionPool(pool_name="mypool", pool_size=3, **config)
+
+LIST_PER_PAGE = 10;		# 한 페이지당 글 목록의 개수
+PAGE_PER_SCREEN = 10;	# 한 화면에 표시되는 페이지 개수
+
+def get_board(bid):     # 단일 보드 가져옴
+    conn = pool.get_connection()    # connection
+    cur = conn.cursor()             # cursor
+    sql = "SELECT b.bid, b.uid, b.title, b.content, b.modTime, b.viewCount, b.replyCount, b.files, u.uname \
+        FROM board AS b JOIN users AS u ON b.uid=u.uid WHERE b.bid=%s"
+    cur.execute(sql,(bid,))
+    row = cur.fetchone()
+    cur.close()
+    conn.close()
+    return row
+
+
+~~~
+
+
 
 <h5>참조</h5>
 
