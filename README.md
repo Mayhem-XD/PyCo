@@ -171,6 +171,23 @@ def get_board(bid):     # 단일 보드 가져옴
 
 ~~~
 
+~~~ python
+
+def get_board_list(field, query, page):     # 보드 리스트 가져옴
+    offset = (page - 1) * 10
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "SELECT b.bid, b.uid, b.title, b.modTime, b.viewCount, b.replyCount, u.uname FROM board AS b \
+        JOIN users AS u ON b.uid=u.uid WHERE b.isDeleted=0 AND %s LIKE %s ORDER BY b.modTime DESC LIMIT 10 OFFSET %s"
+    cur.execute(sql,(field,f'%{query}%', offset))
+    row = cur.fetchall()
+    cur.close()
+    conn.close()
+    return row
+
+
+~~~
+
 
 
 <h5>참조</h5>
