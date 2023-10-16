@@ -105,6 +105,43 @@ def rm_temp_files():
     return None
 ~~~
 
+~~~ python
+
+# 로그인
+
+@user_bp.route('/login', methods=['GET','POST'])
+def login():
+    menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
+    if request.method == 'GET':
+        return render_template('/prototype/user/login.html',menu=menu)
+    else:
+        uid = request.form['uid']
+        pwd = request.form['pwd']
+        # userService login check
+        result = us.login(uid,pwd)
+        if result == us.WRONG_PASSWORD:
+            flash('잘못된 pwd')
+            return redirect('/user/login')
+        elif result == us.UID_NOT_EXIST:
+            flash('id가 존재하지 않습니다.')
+            return redirect('/user/register')
+        elif result == us.CORRECT_LOGIN:
+            # user 정보 가져옴
+            user_info = us.get_user(uid)
+            flash(f'{user_info[2]}님 환영합니다.')
+            # session 값 
+            session['uid'] = uid
+            session['uname'] = user_info[2]
+            session['email'] = user_info[3]
+            if user_info[6]:
+                session['profile'] = user_info[6]
+            session['addr'] = user_info[7]
+            session['currentUserPage'] = math.ceil(us.count_users()[0]/10)
+            return redirect('/')
+        
+
+~~~
+
 
 <h5>참조</h5>
 
