@@ -188,6 +188,20 @@ def get_board_list(field, query, page):     # 보드 리스트 가져옴
 
 ~~~
 
+~~~ python
+
+def insert_board(params):           # 게시글 생성
+    conn = pool.get_connection()
+    cur = conn.cursor()
+    sql = "insert into board values(default, %s, %s, %s, default, default, default, default, %s)"
+    cur.execute(sql,params)
+    row = cur.fetchone()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return row
+
+~~~
 
 
 <h5>참조</h5>
