@@ -200,6 +200,9 @@ def insert_board(params):           # 게시글 생성
     cur.close()
     conn.close()
     return row
+# params
+params = (s_uid, title, content, filenames_json)
+
 
 ~~~
 
