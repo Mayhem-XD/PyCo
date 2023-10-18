@@ -58,19 +58,19 @@ def detail(sid):
     schedule_list = [dict(zip(['sid', 'title', 'place', 'startTime', 'endTime', 'isImportant', 'memo'], sch)) for sch in schedule_list]
     
     return jsonify(schedule_list)
-
+# 삭제 확인창으로 이동
 @user_bp_schedule.route('/delete/<sid>', methods=['GET'])
 def delete(sid):
     return render_template('/prototype/my_schedule/delete.html',sid=sid)
-
+# 삭제
 @user_bp_schedule.route('/delete_confirm/<sid>', methods=['GET'])
 def delete_confirm(sid):
     sched.delete(sid)
     return redirect(url_for('user_bp_schedule.list'))
-
+# 스케줄 입력
 @user_bp_schedule.route('/insert', methods=['POST'])
 def insert():
-    is_important = 0 if request.form['is_important'] == None else 1
+    is_important = 0 if request.form['is_important'] == None else 1 # POST로 받아와서 sched.insert()
     sid = request.form['sid']
     title = request.form['title']
     start_date = request.form['start_date']
@@ -109,7 +109,8 @@ def update():
         params = ( title, s_date, start_date_time, end_date_time, place, memo, is_important, sid, uid)
         sched.update(params)
         return redirect(url_for('user_bp_schedule.calendar'))
-
+    
+# 기념일 입력
 @user_bp_schedule.route('/insert_anniv', methods=['POST'])
 def insert_anniv():
     aname = request.form['aname']
