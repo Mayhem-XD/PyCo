@@ -96,11 +96,6 @@ def schedule():
     # schedule 만들어서 적용 예정
     return render_template('prototype/02.schedule.html',menu=menu, weather=get_weather(app),quote=quote,addr=addr)
 
-@app.route('/self_intr') # 삭제될 부분
-def self_intr():
-    menu = {'ho':0,'nb':0,'us':1,'cr':0,'sc':0,'py':0}
-    return render_template('prototype/self_intr.html',menu=menu, weather=get_weather(app),quote=quote,addr=addr)
-
 
 
 
