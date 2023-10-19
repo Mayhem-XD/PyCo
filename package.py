@@ -331,8 +331,10 @@ def get_cong(station,hh,mm):
     return df_res.values
 
 def show_heatmap(app,line,target,smonth,emonth,heatmap_name=main_heatmap):
+    # 기본 값 main_heatmap
     df = pd.read_csv(heatmap_name)
     df_test = df[(df.호선명 == line)&(df.사용월 >= smonth)&(df.사용월 < emonth)].copy()
+    # 필요없는 부분 제거
     df_test.drop(columns=['호선명','사용월'],inplace=True)
     df_test = df_test[['지하철역','lat','lng',target]]
     df_test.groupby(['지하철역'])[['lat','lng',target]].agg('mean').reset_index()
@@ -355,7 +357,7 @@ def show_tour_map(app,station_name,cat):
     df = tour[tour.분류 == cat]
     lat = stn[stn.지하철역 == station_name].lat.iloc[0]
     lng = stn[stn.지하철역 == station_name].lng.iloc[0]
-    print(tour.shape, df.shape)
+    # print(tour.shape, df.shape)
 
     m = folium.Map(location=[lat, lng],zoom_start=15, width='100%', height='100%')
     for i in df.index:
