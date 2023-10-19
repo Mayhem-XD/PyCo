@@ -338,7 +338,7 @@ def show_heatmap(app,line,target,smonth,emonth,heatmap_name=main_heatmap):
     df_test.drop(columns=['호선명','사용월'],inplace=True)
     df_test = df_test[['지하철역','lat','lng',target]]
     df_test.groupby(['지하철역'])[['lat','lng',target]].agg('mean').reset_index()
-    # 처음 보여 줄 곳은 데이터프레임에 있는 역들의 위경도 평균치
+    # 처음 보여 줄 곳은 데이터프레임에 있는 역들의 평균 위도 경도
     mean_lat = df_test['lat'].mean()
     mean_lng = df_test['lng'].mean()
     df_test.drop(columns=['지하철역'],inplace=True)
