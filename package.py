@@ -237,6 +237,7 @@ def get_stn_lat_lng():
     df = pd.read_csv(temp_info_name)
     df = df[['역사명','역사도로명주소','운영기관명']]
     df.rename(columns={'역사명':'지하철역','역사도로명주소':'도로명주소'},inplace=True)
+    # 제거 대상
     exclude_list = ['대전교통공사', '대구도시철도공사', '부산광역시 부산교통공사', '부산-김해경전철㈜','광주광역시 도시철도공사']
     for exclude in exclude_list:
         df = df[df['운영기관명'] != exclude]
@@ -266,7 +267,7 @@ def get_stn_lat_lng():
 def add_lat_lng(name=heatmap_data):
     df_latlng = pd.read_csv(f'{main_datafile_path}stn_r_addr_final.csv')
     df_latlng.drop(columns=['도로명주소'], inplace=True)
-
+    # 기본 값 heatmap_data
     df_main = pd.read_csv(name)
     res = pd.merge(df_main, df_latlng, on='지하철역', how='left')
     res.to_csv(f'{main_datafile_path}lines_4heatmap_{name[5:12]}.csv', index=False)
