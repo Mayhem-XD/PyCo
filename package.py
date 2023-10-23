@@ -196,8 +196,8 @@ def preproc_sub(year,ck_week):
     copy_list = []
     si_list = '오이도 정왕 신길오천 안산 초지 고잔 중앙 한대앞'.split()
     for line, frame in df_dict.items():
+        # 역명 변경및 누락 역사 추가
         frame.loc[(frame['호선명'] == '2호선') & (frame['지하철역'] == '신천'), '지하철역'] = '잠실새내'
-        
         frame_copy = frame[(frame['호선명']=='안산선')&(frame['지하철역'].isin(si_list))].copy()
         frame_copy['호선명'] = frame_copy['호선명'].apply(lambda x: '수인선_누락')
         frame_copy = frame_copy.reset_index(drop=True)
@@ -351,6 +351,7 @@ def show_heatmap(app,line,target,smonth,emonth,heatmap_name=main_heatmap):
     m.save(heatmap)
     return '../static/img/heatmap.html'
     
+# 특정역 근처에 분류에 따른 결과 보여줌
 def show_tour_map(app,station_name,cat):
     tour = pd.read_csv(f'{main_datafile_path}수도권.csv')
     stn = pd.read_csv(f'{main_datafile_path}stn_r_addr_final.csv')
@@ -387,6 +388,7 @@ def show_cong(timep, target):
     cong = get_cong(station=target, hh=hh, mm=mm)
     dn = int(cong[0][1])
     up = int(cong[1][1])
+    # 임의의 기준으로 구간 분리
     dn_img = 'a' if dn < 20 else 'b' if dn < 40 else 'c' if dn < 80 else 'd' if dn < 140 else 'e'
     up_img = 'a' if up < 20 else 'b' if up < 40 else 'c' if up < 80 else 'd' if up < 140 else 'e'
     return dn_img,up_img
