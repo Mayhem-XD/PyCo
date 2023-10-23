@@ -13,7 +13,7 @@ from bp_schedule.schedule import user_bp_schedule
 
 
 app = Flask(__name__)
-
+# key는 수정해야 함
 app.secret_key = 'qwert12345'
 app.config['SESSION_COOKIE_PATH'] = '/'
 # blueprint 
@@ -31,9 +31,12 @@ def page_not_found(e):
     return render_template('prototype/error404.html')
 def server_error(e):
     return render_template('prototype/error500.html')
+def service_error(e):
+    return render_template('prototype/error503.html')
 
 app.register_error_handler(404, page_not_found)
 app.register_error_handler(500, server_error)
+app.register_error_handler(503, service_error)
 #########################################
 
 # for AJAX  #############################
