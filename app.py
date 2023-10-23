@@ -52,6 +52,7 @@ def before_first_request():
     addr = '수원시 장안구'
     session['addr'] = addr
     
+#   문구 변경
 @app.route('/change_quote')
 def change_quote():
     global quote
@@ -59,6 +60,7 @@ def change_quote():
     session['quote'] = quote
     return quote
 
+# 주소 변경
 @app.route('/change_addr')
 def change_addr():
     global addr
@@ -66,6 +68,7 @@ def change_addr():
     session['addr'] = addr
     return addr
 
+# 날씨 갱신
 @app.route('/change_weather')
 def weather():
     global addr
@@ -73,6 +76,7 @@ def weather():
     lat_,lon_ = ut.get_coord(addr+'청')
     return get_weather(app,lat_,lon_)
 
+# profile 수정
 @app.route('/change_profile',methods=['POST'])
 def change_profile():
     file_image = request.files['image']
