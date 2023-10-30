@@ -13,9 +13,9 @@ upload_dir = "static"
 
 @user_bp_board.route('/list', methods=['GET','POST'])
 def list():
-    menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
+    menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}      # top nav에서 클릭된 상태 보여주기위해
     try:
-        _ = session['uid']
+        _ = session['uid']                                  # 로그인 되었으면 진행
     except:
             flash('게시판을 확인하려면 로그인하여야 합니다.')
             return redirect('/user/login')
