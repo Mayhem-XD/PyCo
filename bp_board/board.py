@@ -20,7 +20,6 @@ def list():
             flash('게시판을 확인하려면 로그인하여야 합니다.')
             return redirect('/user/login')
     
-    menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
     page = request.args.get('p', default=1, type=int)
     field = request.args.get('f', default='title', type=str)
     query = request.args.get('q', default='', type=str)
@@ -30,7 +29,7 @@ def list():
     end_page = min(total_pages, start_page + bs.PAGE_PER_SCREEN - 1)
     page_list = [i for i in range(start_page, end_page + 1)]
 
-    session['current_page'] = page
+    session['current_page'] = page                      # session으로 현재 페이지 전달
     # model dict로 전달
     model = {'field' : field, 'query':query, 
             'today': datetime.now().isoformat().replace('T',' ')[:-7],
