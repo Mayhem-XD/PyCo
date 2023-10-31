@@ -38,6 +38,7 @@ def list():
             }
     board_list= bs.get_board_list(field=field, query=query, page=page)
     # tuple 타입으로 받은 리스트를 dictionary안의 list로 변환 'modTime'수정해야 해서
+    # 안하고 넘겨주면 JSP파일에서 사용하기 힘듬
     board_list = [dict(zip(['bid', 'uid', 'title', 'modTime', 'viewCount', 'replyCount', 'uname'], row)) for row in board_list]
     for board in board_list:
         board['modTime'] = board['modTime'].strftime('%Y-%m-%d-%H-%M-%S')
@@ -57,7 +58,8 @@ def detail(bid,uid):
     # file는 나중에
     # files list 가져와야함
 
-    reply_list = rs.get_reply_list(bid=bid)
+    reply_list = rs.get_reply_list(bid=bid)     # 댓글 리스트 받아옴
+    # tuple 타입으로 받은 댓글 리스트를 JSP에서 사용하기 위해 변환
     reply_list = [dict(zip(['rid', 'comment', 'regTime', 'isMine', 'uid', 'bid', 'uname'], row)) for row in reply_list]
     file_list = ['test_a','test_b','test_c']
 
