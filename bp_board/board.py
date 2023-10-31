@@ -111,6 +111,7 @@ def delete_confirm(bid):
     # 삭제한 당시의 페이지로 이동  / 검색후 삭제하는 경우 도 추가 예정
     return redirect(url_for('user_bp_board.list', p=cs, f='', q=''))
 
+# 게시글 수정
 @user_bp_board.route('/update/<bid>', methods=['GET','POST'])
 def update(bid):
     if request.method == 'GET':
@@ -145,4 +146,6 @@ def update(bid):
         bs.update_board(params=params)
 
         # files : []
+
+        # 수정한 게시글 조회 페이지로 이동
         return redirect(f"/board/detail/{bid}/{session['uid']}")
