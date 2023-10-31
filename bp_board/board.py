@@ -90,12 +90,14 @@ def write():
                     file.save(os.path.join(upload_dir,'upload', filename))
                     filenames.append(filename)
             filenames_json = json.dumps(filenames)
-        
+        # uid는 현재 세션의 uid
         s_uid = session['uid']
         params = (s_uid, title, content, filenames_json)
         bs.insert_board(params=params)
+        # redirect함 board_list에 1 페이지로
         return redirect(url_for('user_bp_board.list', p=1, f='', q=''))
-
+    
+# 게시글 삭제하는 기능
 @user_bp_board.route('/delete/<bid>', methods=['GET'])
 def delete(bid):
     menu = {'ho':0,'nb':1,'us':0,'cr':0,'sc':0,'py':0}
@@ -104,7 +106,9 @@ def delete(bid):
 @user_bp_board.route('/deleteConfirm/<bid>', methods=['GET'])
 def delete_confirm(bid):
     bs.delete_board(bid)
+    # 현재 페이지 전달
     cs = session['current_page']
+    # 삭제한 당시의 페이지로 이동  / 검색후 삭제하는 경우 도 추가 예정
     return redirect(url_for('user_bp_board.list', p=cs, f='', q=''))
 
 @user_bp_board.route('/update/<bid>', methods=['GET','POST'])
