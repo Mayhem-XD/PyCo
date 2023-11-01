@@ -11,6 +11,8 @@ import utils as ut
 user_bp_reply = Blueprint('user_bp_reply',__name__)
 upload_dir = "static"
 
+# 댓글 작성
+
 @user_bp_reply.route('/write',methods=['POST'])
 def write():
     bid = request.form['bid']
@@ -24,6 +26,7 @@ def write():
     bs.increase_count('replyCount',bid=bid)
     return redirect(f"/board/detail/{bid}/{session['uid']}")
 
+# 댓글 삭제
 @user_bp_reply.route('/delete/<rid>/<bid>',methods=['POST'])
 def delete(rid,bid):
     rs.delete_reply(rid)

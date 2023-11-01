@@ -87,6 +87,7 @@ def insert():
     sched.insert(params)
     return redirect(url_for('user_bp_schedule.list'))
     
+# 수정
 @user_bp_schedule.route('/update', methods=['GET','POST'])
 def update():
     menu = {'ho':0,'nb':0,'us':0,'cr':0,'sc':1}
