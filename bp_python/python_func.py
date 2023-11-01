@@ -32,10 +32,11 @@ def park_status():
     else:
         # 입력 파라메타 : 지역
         target = request.form['target']
-        # pk.park_status(target)
+        # map_img = pk.park_status(target)
         # 전달 파라메타 : 이미지
         pass
         # ajax 예정
+        # return map_img
 
 # pop_pd_smt
 # 수정 될 듯
@@ -49,8 +50,8 @@ def pop_pd_smt():
         emonth = request.form['emonth']
         line = request.form['line']
         target = request.form['target']
-        pk.show_heatmap(app=app,target=target,smonth=smonth,emonth=emonth,line=line)
-        # return ???
+        pop_img = pk.show_heatmap(app=app,target=target,smonth=smonth,emonth=emonth,line=line)
+        return pop_img
         pass
         # ajax 예정
         # 입력 파라메타 : 시작일(년월일) 종료일(년월일) 호선 타겟시간
