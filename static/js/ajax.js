@@ -25,13 +25,13 @@ function addrSubmit(){
     });
 }
 function changWeather(){
-    let addr = $('#addr').text();
+    let addr = $('#addr').text();           // 서버로 부터 받은 데이터
     $.ajax({
         type: 'GET',
         url: '/change_weather',
         data: {addr:addr},
-        success: function(result){
-            $('#weather').html(result);
+        success: function(result){          // 성공시 실행
+            $('#weather').html(result);     // 날씨 전달
         }
     });
 
