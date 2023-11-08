@@ -37,7 +37,7 @@ function changWeather(){
 
 }
 function changeProfile(){
-    $('#imageInput').attr('class','mt-2');
+    $('#imageInput').attr('class','mt-2');      // hidden 상태의 img tag을 보여줌
 }
 function imageSubmit(){
     let imageInputValue = $('#image')[0];
@@ -50,7 +50,7 @@ function imageSubmit(){
         processData: false,
         contentType: false,
         success: function(result){
-            $('#imageInput').attr('class','mt-2 d-none');
+            $('#imageInput').attr('class','mt-2 d-none');           // img tag를 숨김
             fname = 'http://127.0.0.1:5000/static/data/profile.png?q=' + result;
             $('#profile').attr('src',fname);
         }
