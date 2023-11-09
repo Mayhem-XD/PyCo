@@ -45,7 +45,7 @@ function imageSubmit(){
     formData.append('image',imageInputValue.files[0]);
     $.ajax({
         type: 'POST',
-        url: '/change_profile',
+        url: '/change_profile',             // formData로
         data: formData,
         processData: false,
         contentType: false,
@@ -57,5 +57,5 @@ function imageSubmit(){
     });
 }
 function showHotplaces(){
-    $('#resDiv').attr('class','mt-2')
+    $('#resDiv').attr('class','mt-2')   // hidden 속성 제거
 }
