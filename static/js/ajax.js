@@ -47,8 +47,8 @@ function imageSubmit(){
         type: 'POST',
         url: '/change_profile',             // formData로
         data: formData,
-        processData: false,
-        contentType: false,
+        processData: false,     // jQuery가 데이터를 쿼리 문자열로 변환하는 것을 방지 formData는 이미 적절한 형식
+        contentType: false,     //  jQuery가 Content-Type 헤더를 설정하는 것을 방지 formData를 사용할 때는 브라우저가 적절한 Content-Type을 설정
         success: function(result){
             $('#imageInput').attr('class','mt-2 d-none');           // img tag를 숨김
             fname = 'http://127.0.0.1:5000/static/data/profile.png?q=' + result;
