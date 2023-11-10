@@ -50,8 +50,7 @@ if (typeof jQuery !== 'undefined') {
 
                 if ($.fn.jquery >= '1.4.2') {
                     widget.ui.delegate('a', 'mouseenter.timepicker', function() {
-                        // passing false instead of an instance object tells the function
-                        // to use the current instance
+                        // 인스턴스 객체 대신에 false를 전달하면 함수가 현재 인스턴스를 사용
                         widget.activate(false, $(this).parent());
                     }).delegate('a', 'mouseleave.timepicker', function() {
                         widget.deactivate(false);
