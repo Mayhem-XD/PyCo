@@ -435,7 +435,7 @@ if (typeof jQuery !== 'undefined') {
                     zindex = i.options.zindex ? i.options.zindex : i.element.offsetParent().css( 'z-index' ),
                     elementOffset = i.element.offset();
 
-                // position the container right below the element, or as close to as possible.
+                // 요소 바로 아래에 컨테이너를 배치하거나, 가능한 한 가까이에 배치 해야 함
                 widget.container.css( {
                     top: elementOffset.top + i.element.outerHeight(),
                     left: elementOffset.left
