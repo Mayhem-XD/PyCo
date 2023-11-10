@@ -94,8 +94,7 @@ if (typeof jQuery !== 'undefined') {
             _items: function(i, startTime) {
                 var widget = this, ul = $('<ul></ul>'), item = null, time, end;
 
-                // interval should be a multiple of 60 if timeFormat is not
-                // showing minutes
+                // 시간 형식이 분을 표시하지 않는 경우 간격이 60의 배수이여야 함
                 if (i.options.timeFormat.indexOf('m') === -1 && i.options.interval % 60 !== 0) {
                     i.options.interval = Math.max(Math.round(i.options.interval / 60), 1) * 60;
                 }
