@@ -7,8 +7,8 @@ function send_val() {
         url: '/api/stn_rt_location' ,      // 주소 추가해야함
         data: { timep: timep, stn: stn},
         success: function (result) {
-            $('#init_img').css('display', 'none');
-            $('#show_img').css('display', 'block');
+            $('#init_img').css('display', 'none');      // 기존 이미지 숨김
+            $('#show_img').css('display', 'block');     // 이미지 보여 줄 곳
             let dn = result.dn;
             let up = result.up;
             $('#i1').attr('src', '/static/img/stage_'+dn+'.png');
