@@ -6,6 +6,7 @@
 
 > 내용 </br>
 > 추후 수정예정<br>
+> api key 갱신해야함
 > MySQL DB 연동<br>
 > 게시판, 댓글, api, <br>
 > Ajax로 기능 수정예정 <br>
